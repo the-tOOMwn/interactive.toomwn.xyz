@@ -78,11 +78,11 @@
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 15, height: 15}, scene);
 
     const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-    groundMaterial.emissiveColor = new BABYLON.Color4(0, 66, 37, 1);
+    groundMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#004225");
     ground.material = groundMaterial;
 
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
-    monkeyMaterial.emissiveColor = new BABYLON.Color4(61, 43, 31, 1)
+    monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#3D2B1F");
 
     for(let i = -3; i<4; i++){
 
