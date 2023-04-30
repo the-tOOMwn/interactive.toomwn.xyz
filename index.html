@@ -80,8 +80,6 @@
     let groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
     groundMaterial.diffuseColour = new BABYLON.Color3.Green();
     ground.material = groundMaterial;
-    let groundTexture = new BABYLON.Texture(Assets.textures.checkerboard_basecolor_png.rootUrl, scene);
-    ground.material.diffuseTexture = groundTexture;
 
     for(let i = -3; i<3; i++){
 
