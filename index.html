@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <title>Babylon.js sample code</title>
+        <title>Town Interactive</title>
 
         <!-- Babylon.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
@@ -76,7 +76,7 @@
     light.intensity = 0.7;
 
     // Our built-in 'ground' shape.
-    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 6, height: 6}, scene);
+    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 15, height: 15}, scene);
     let groundMaterial = new BABYLON.StandardMaterial("Ground Material", scene);
     ground.material = groundMaterial;
     let groundTexture = new BABYLON.Texture(Assets.textures.checkerboard_basecolor_png.rootUrl, scene);
