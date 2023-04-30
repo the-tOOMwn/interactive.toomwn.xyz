@@ -83,9 +83,9 @@
     let groundTexture = new BABYLON.Texture(Assets.textures.checkerboard_basecolor_png.rootUrl, scene);
     ground.material.diffuseTexture = groundTexture;
 
-    for(let i = 0; i<3; i++){
+    for(let i = -3; i<3; i++){
 
-        for(let j = 0; j < 3; j++) {
+        for(let j = -3; j < 3; j++) {
 
             BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
             newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
