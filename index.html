@@ -78,12 +78,12 @@
     // Our built-in 'ground' shape.
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 15, height: 15}, scene);
     let groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuseColour = new BABYLON.Color3.Green();
+    groundMaterial.diffuseColour = new BABYLON.Color3(0, 1, 0);
     ground.material = groundMaterial;
 
-    for(let i = -3; i<3; i++){
+    for(let i = -3; i<4; i++){
 
-        for(let j = -3; j < 3; j++) {
+        for(let j = -3; j < 4; j++) {
 
             BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
             newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
