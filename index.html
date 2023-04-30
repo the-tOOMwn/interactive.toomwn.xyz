@@ -78,13 +78,19 @@
     // Our built-in 'ground' shape.
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 15, height: 15}, scene);
     let groundMaterial = new BABYLON.StandardMaterial("Ground Material", scene);
+    groundMaterial = new BABYLON.Color3.Green();
     ground.material = groundMaterial;
     let groundTexture = new BABYLON.Texture(Assets.textures.checkerboard_basecolor_png.rootUrl, scene);
     ground.material.diffuseTexture = groundTexture;
 
-    BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
+    BABYLON.SceneLoader.ImportMeshAsync("", "models/", "suzanne.obj", scene, function(newMeshes){
     newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
-    newMeshes[0].position = new BABYLON.Vector3(0, 2, 0);
+    newMeshes[0].position = new BABYLON.Vector3(0, 1, 0);
+});
+
+    BABYLON.SceneLoader.ImportMeshAsync("", "models/", "suzanne.obj", scene, function(newMeshes){
+    newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
+    newMeshes[0].position = new BABYLON.Vector3(0, 1, 3);
 });
 
     return scene;

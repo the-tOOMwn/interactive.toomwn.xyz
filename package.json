@@ -1,0 +1,23 @@
+{
+  "name": "town-interactive",
+  "version": "1.0.0",
+  "description": "towning moment An interactive non-game game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-oom-town/town-interactive.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-oom-town/town-interactive/issues"
+  },
+  "homepage": "https://github.com/the-oom-town/town-interactive#readme",
+  "devDependencies": {
+    "@babylonjs/core": "^6.1.0",
+    "@babylonjs/inspector": "^6.1.0"
+  }
+}
