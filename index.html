@@ -78,7 +78,7 @@
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 15, height: 15}, scene);
 
     const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuse = new BABYLON.Color4.FromHexString("#00FF00");
+    groundMaterial.specularColor = new BABYLON.Color4.FromHexString("#00FF00");
     ground.material = groundMaterial;
 
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
@@ -91,6 +91,7 @@
             BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
             newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
             newMeshes[0].position = new BABYLON.Vector3(2*i, 1.1, 2*j);
+            newMeshes[0].material = monkeyMaterial;
             });
         }
     }
