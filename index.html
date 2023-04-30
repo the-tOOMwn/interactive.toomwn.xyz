@@ -73,13 +73,16 @@
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
     // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 0.7;
+    light.intensity = 0.5;
 
-    // Our built-in 'ground' shape.
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 15, height: 15}, scene);
-    let groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuseColour = new BABYLON.Color3(0, 1, 0);
+
+    const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+    groundMaterial.diffuseColour = new BABYLON.Color4.FromHexString("#00FF00");
     ground.material = groundMaterial;
+
+    const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
+    groundMaterial.diffuseColour = new BABYLON.Color4.FromHexString("#993300")
 
     for(let i = -3; i<4; i++){
 
