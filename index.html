@@ -64,7 +64,7 @@
         // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
 
-            var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
+            var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
             camera.speed = 0.5
             camera.minZ = 0.01
