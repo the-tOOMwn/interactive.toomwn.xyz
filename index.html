@@ -69,7 +69,10 @@
             camera.speed = 0.5
             camera.minZ = 0.01
             camera.position.y = 0.7
-
+            
+            const assumedFramesPerSecond = 60;
+            const earthGravity = -9.81;
+            scene.gravity = new BABYLON.Vector3(0, earthGravity / assumedFramesPerSecond, 0);
             camera.applyGravity = true;
 
             camera.ellipsoid = new BABYLON.Vector3(0.7, 0.7, 0.7);
