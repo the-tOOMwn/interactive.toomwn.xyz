@@ -92,7 +92,7 @@
 
             BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
             newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
-            newMeshes[0].position = new BABYLON.Vector3(2*i, 1.1, 2*j);
+            newMeshes[0].position = new BABYLON.Vector3(2*i + 5, 1.1, 2*j+5);
             newMeshes[0].material = monkeyMaterial;
             });
         }
