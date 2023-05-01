@@ -70,11 +70,13 @@
     camera.attachControl(canvas, true);
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, -3, 0), scene);
+    var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 100, 10), scene);
 
     // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 0.1;
-
+    light.intensity = 1;
+    
+    light.setEnabled(true)
+    
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 100, height: 100}, scene);
 
     const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
@@ -98,7 +100,7 @@
 
             BABYLON.SceneLoader.ImportMesh("", "models/", "farm_house.glb", scene, function(newMeshes){
             newMeshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
-            newMeshes[0].position = new BABYLON.Vector3(2, 5, 2)
+            newMeshes[0].position = new BABYLON.Vector3(2, 4.9, 2)
             });
 
     return scene;
