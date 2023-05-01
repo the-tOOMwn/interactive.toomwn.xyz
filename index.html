@@ -68,11 +68,11 @@
 
     camera.speed = 0.5
     camera.minZ = 0.01
-    camera.position.y = 1.38
+    camera.position.y = 0.7
 
     camera.applyGravity = true;
 
-    camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+    camera.ellipsoid = new BABYLON.Vector3(0.7, 0.7, 0.7);
 
     scene.collisionsEnabled = true;
     camera.checkCollisions = true;
@@ -99,6 +99,8 @@
     ground.material = groundMaterial;
     ground.checkCollisions = true;
 
+    /*
+
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
     monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#5c3004");
 
@@ -118,10 +120,13 @@
 
     }
 
+    */
+
     
     BABYLON.SceneLoader.ImportMesh("", "models/", "farm_house.glb", scene, function(newMeshes){
     newMeshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
     newMeshes[0].position = new BABYLON.Vector3(2, 4.9, 2)
+    newMeshes[0].checkCollisions = true;
     });
 
     return scene;
