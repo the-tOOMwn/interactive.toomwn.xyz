@@ -66,6 +66,8 @@
 
     var camera = new BABYLON.UniversalCamera("camera", BABYLON.Vector3(0,10,0), scene);
     camera.inputs.addMouseWheel();
+    // Looking downwards
+    camera.setTarget(BABYLON.Vector3.Zero());
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
 
