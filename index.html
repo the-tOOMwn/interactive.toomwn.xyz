@@ -64,7 +64,7 @@
     // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
 
-    var camera = new BABYLON.ArcRotateCamera("camera", BABYLON.Tools.ToRadians(90), BABYLON.Tools.ToRadians(65), 10, BABYLON.Vector3.Zero(), scene);
+    var camera = new BABYLON.UniversalCamera("camera", BABYLON.Tools.ToRadians(90), BABYLON.Tools.ToRadians(65), 10, BABYLON.Vector3.Zero(), scene);
 
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
@@ -86,11 +86,11 @@
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
     monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#5c3004");
 
-    for(let k = 1; k<5; k++){
+    for(let k = 1; k<7; k++){
 
-        for(let i = -2; i<2; i++){
+        for(let i = -2; i<3; i++){
 
-            for(let j = -2; j < 2; j++) {
+            for(let j = -2; j < 3; j++) {
 
                 BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
                 newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
