@@ -86,11 +86,11 @@
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
     monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#5c3004");
 
-    for(let k = 1; k<7; k++){
+    for(let k = 1; k<8; k++){
 
         for(let i = -2; i<3; i++){
 
-            for(let j = -2; j < 3; j++) {
+            for(let j = -1; j < 3; j++) {
 
                 BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
                 newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
