@@ -70,7 +70,7 @@
     camera.attachControl(canvas, true);
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 3, 0), scene);
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, -3, 0), scene);
 
     // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.1;
@@ -82,7 +82,7 @@
     ground.material = groundMaterial;
 
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
-    //monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#3D2B1F");
+    //monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#ae854f");
 
     //for(let i = -3; i<4; i++){
 
