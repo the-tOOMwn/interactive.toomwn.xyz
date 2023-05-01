@@ -86,15 +86,18 @@
     const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
     monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#5c3004");
 
-    for(let i = -10; i<10; i++){
+    for(let c = 1; c<2; c++) {
 
-        for(let j = -10; j < 10; j++) {
+        for(let i = -20; i<20; i++){
 
-            BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
-            newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
-            newMeshes[0].position = new BABYLON.Vector3(2*i + 10, 1.1, 2*j+10);
-            newMeshes[0].material = monkeyMaterial;
-            });
+            for(let j = -20; j < 10; j++) {
+
+                BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
+                newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
+                newMeshes[0].position = new BABYLON.Vector3(2*i, 1.1*c, 2*j);
+                newMeshes[0].material = monkeyMaterial;
+                });
+            }
         }
     }
 
