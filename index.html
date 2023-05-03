@@ -65,8 +65,9 @@
         var scene = new BABYLON.Scene(engine);
 
         const music = new BABYLON.Sound("Music", "https://eddietheed.github.io/obsidiannotes-v.3/verslaflamme.mp3", scene, null, {
-        loop: true,
-        autoplay: true,
+            loop: true,
+            autoplay: true,
+            volume: 0.4,
         });
 
     	var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
