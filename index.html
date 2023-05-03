@@ -62,13 +62,13 @@
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
         var createScene = function () {
         // This creates a basic Babylon Scene object (non-mesh)
-            var scene = new BABYLON.Scene(engine);
+        var scene = new BABYLON.Scene(engine);
 
-            var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
+    	var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
             camera.speed = 0.2
             camera.minZ = 0.01
-            camera.position.y = 1.8
+            camera.position.y = 1.8 // double the height of the ellipsoid for some reason
             
             const assumedFramesPerSecond = 60;
             const earthGravity = -9.81;
