@@ -54,8 +54,6 @@ var createScene = function () {
     camera.checkCollisions = true;
 
     camera.setTarget(BABYLON.Vector3.Zero());
-
-    camera.attachControl(canvas, true);
     
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 100, height: 100}, scene);
 
