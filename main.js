@@ -32,6 +32,11 @@ var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, {
 var createScene = function () {
     var scene = new BABYLON.Scene(engine);
 
+    const music = new BABYLON.Sound("Music", "https://eddietheed.github.io/obsidiannotes-v.3/verslaflamme.mp3", scene, null, {
+        loop: true,
+        autoplay: true,
+    });
+    
     var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
     camera.speed = 0.2
