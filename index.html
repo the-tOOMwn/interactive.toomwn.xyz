@@ -167,6 +167,12 @@
 
         });
 
+        BABYLON.SceneLoader.ImportMesh("", "models/", "1block.obj", scene, function(newMeshes){
+            newMeshes[0].position = new BABYLON.Vector3(0, 1, 0)
+            newMeshes[0].checkCollisions = true;
+
+        });
+
         
         window.addEventListener("keydown", function (evt) {
         // Press space key to fire
