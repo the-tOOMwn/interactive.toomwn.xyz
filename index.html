@@ -64,6 +64,11 @@
         // This creates a basic Babylon Scene object (non-mesh)
         var scene = new BABYLON.Scene(engine);
 
+        const music = new BABYLON.Sound("Music", "music.wav", scene, null, {
+        loop: true,
+        autoplay: true,
+        });
+
     	var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
             camera.speed = 0.2
@@ -91,8 +96,7 @@
             var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 100, height: 100}, scene);
 
             const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-            
-            groundMaterial.emissiveTexture = new BABYLON.Texture("textures/sand.jpg", scene)
+            groundMaterial.emissiveColor = new BABYLON.Color4(0.8359375, 0.4140625, 0.234375)
             ground.material = groundMaterial;
             ground.checkCollisions = true;
             
