@@ -100,7 +100,7 @@
 	// This creates a light, aiming 0,1,0 - to the sky (non-mesh)
 	var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 50, 10), scene)
 	// const light = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(1, 50, 1), scene)
-	light.diffuse = new BABYLON.Color3(0.53, 0.81, 0.92);
+	light.diffuse = new BABYLON.Color3(1, 1, 1);
 
 
 	// Default intensity is 1. Let's dim the light a small amount
@@ -111,11 +111,11 @@
 	light.excludedMeshes.push(ground)
 
 
-	// scene.clearColor = new BABYLON.Color3(0.53, 0.81, 0.92) // The colour of the sky
+	scene.clearColor = new BABYLON.Color3(0.53, 0.81, 0.92) // The colour of the sky
 
 
-	scene.fogMode = BABYLON.Scene.FOGMODE_EXP
-	scene.fogDensity = 0.001
+	// scene.fogMode = BABYLON.Scene.FOGMODE_EXP
+	// scene.fogDensity = 0.001
 
 	/*
 	// Skybox
