@@ -87,6 +87,16 @@
             camera.attachControl(canvas, true);
             
 
+            
+            var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 100, height: 100}, scene);
+
+            const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+            groundMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#ae854f");
+            ground.material = groundMaterial;
+            ground.checkCollisions = true;
+            
+            
+            
             // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
             // var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 100, 10), scene)
             const light = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(1, 10, 1), scene)
@@ -97,14 +107,16 @@
             light.intensity = 1;
             
             light.setEnabled(true)
+
+            light.excludedMeshes.push(ground)
             
-            var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 100, height: 100}, scene);
-
-            const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-            groundMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#ae854f");
-            ground.material = groundMaterial;
-            ground.checkCollisions = true;
-
+            
+            
+            
+            
+            
+            
+            
             /*
 
             const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
