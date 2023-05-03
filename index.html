@@ -116,11 +116,11 @@
         light.excludedMeshes.push(ground)
         
         
-        // scene.clearColor = new BABYLON.Color3(0.53, 0.81, 0.92) // The colour of the sky
+        scene.clearColor = new BABYLON.Color3(0.29296875, 0.73046875, 1.00) // The colour of the sky
 
         
         scene.fogMode = BABYLON.Scene.FOGMODE_EXP
-        scene.fogDensity = 0.01
+        scene.fogDensity = 0.02
 
             /*
             // Skybox
@@ -159,11 +159,12 @@
             */
 
             
-        BABYLON.SceneLoader.ImportMesh("", "models/", "farm_house.glb", scene, function(newMeshes){
-        newMeshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
-        newMeshes[0].position = new BABYLON.Vector3(2, 4.9, 2)
+        BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
+        newMeshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+        newMeshes[0].position = new BABYLON.Vector3(2, 10, 2)
         newMeshes[0].checkCollisions = true;
-        newMeshes[0].applyGravity = true;
+
+
         });
 
         
