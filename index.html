@@ -66,6 +66,9 @@
 
     	var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
+        // by default all music plays at volume
+        var musicvalue = 1
+
         camera.speed = 0.2
         camera.minZ = 0.01
         camera.position.y = 1.8 // double the height of the ellipsoid for some reason
@@ -134,7 +137,7 @@
         const music1 = new BABYLON.Sound("Music", "music/verslaflamme.mp3"/*"music/e.wav"*/, scene, null, {
             loop: true,
             autoplay: true,
-            volume: 0.4,
+            volume: 0.4 * musicvalue,
             spatialSound: true,
             distanceModel: "exponential",
             rolloffFactor: 1.1,
@@ -142,7 +145,21 @@
 
         music1.setPosition(new BABYLON.Vector3(0, 1, 0));
 
+        window.addEventListener("keydown", function (evt) {
+        if (evt.keyCode === 8) {
 
+            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    
+            var input = new BABYLON.GUI.InputText();
+            input.width = 0.2;
+            input.maxWidth = 0.2;
+            input.height = "40px";
+            input.text = "";
+            input.color = "white";
+            input.background = "black";
+            advancedTexture.addControl(input); 
+        }
+        });
         
         /*
         window.addEventListener("keydown", function (evt) {
@@ -188,7 +205,7 @@
         */
 
         /* code to enter things in, like a terminal of sorts? this would be so one could enter dev mode and fly around and stuff
-            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+            ar advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
             advancedTexture.background = 'green'
 
             const initialText = "This is some example text. \nIt's quite long, so will need to be displayed across multiple lines. \n\nIt also has several line breaks.";
@@ -200,7 +217,7 @@
             inputTextArea.color = "white";
             inputTextArea.fontSize = 48;
 
-            advancedTexture.addControl(inputTextArea);
+            advancedTexture.addControl(inputTextArea);v
 
 
         */
