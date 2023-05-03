@@ -111,10 +111,12 @@
             light.excludedMeshes.push(ground)
             
             
-            scene.clearColor = new BABYLON.Color3(0.5, 0.8, 0.5);
+            scene.clearColor = new BABYLON.Color3(0.53, 0.81, 0.92) // The colour of the sky
 
             
-            
+            scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
+            scene.fogDensity = 0.01;
+
             
             
             
