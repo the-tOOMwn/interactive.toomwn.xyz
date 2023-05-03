@@ -31,14 +31,14 @@ var sceneToRender = null;
 var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
 var createScene = function () {
     var scene = new BABYLON.Scene(engine);
-
+    /*
     const music = new BABYLON.Sound("Music", "https://eddietheed.github.io/obsidiannotes-v.3/verslaflamme.mp3", scene, null, {
         loop: true,
         autoplay: true,
-    });
+    });*/
     
     var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
-
+    /*
     camera.speed = 0.2
     camera.minZ = 0.01
     camera.position.y = 0.7
@@ -46,7 +46,7 @@ var createScene = function () {
     const assumedFramesPerSecond = 60;
     const earthGravity = -9.81;
     scene.gravity = new BABYLON.Vector3(0, earthGravity / assumedFramesPerSecond, 0);
-    camera.applyGravity = true;
+    camera.applyGravity = true;*/
 
     camera.ellipsoid = new BABYLON.Vector3(0.7, 0.7, 0.7);
 
