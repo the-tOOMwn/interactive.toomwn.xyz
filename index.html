@@ -68,14 +68,14 @@
 
             camera.speed = 0.2
             camera.minZ = 0.01
-            camera.position.y = 0.7
+            camera.position.y = 1.8
             
             const assumedFramesPerSecond = 60;
             const earthGravity = -9.81;
             scene.gravity = new BABYLON.Vector3(0, earthGravity / assumedFramesPerSecond, 0);
             camera.applyGravity = true;
 
-            camera.ellipsoid = new BABYLON.Vector3(0.7, 0.7, 0.7);
+            camera.ellipsoid = new BABYLON.Vector3(0.7, 0.9, 0.7);
 
             scene.collisionsEnabled = true;
             camera.checkCollisions = true;
@@ -91,7 +91,8 @@
             var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 100, height: 100}, scene);
 
             const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-            groundMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#ae854f");
+            
+            groundMaterial.emissiveTexture = new BABYLON.Texture("textures/sand.jpg", scene)
             ground.material = groundMaterial;
             ground.checkCollisions = true;
             
@@ -115,7 +116,7 @@
 
             
             scene.fogMode = BABYLON.Scene.FOGMODE_EXP
-            scene.fogDensity = 0.1
+            scene.fogDensity = 0.01
 
             /*
             // Skybox
@@ -158,6 +159,7 @@
             newMeshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
             newMeshes[0].position = new BABYLON.Vector3(2, 4.9, 2)
             newMeshes[0].checkCollisions = true;
+            newMeshes[0].applyGravity = true;
             });
 
             return scene;
