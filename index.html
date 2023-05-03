@@ -114,9 +114,18 @@
             scene.clearColor = new BABYLON.Color3(0.53, 0.81, 0.92) // The colour of the sky
 
             
-            scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
-            scene.fogDensity = 0.01;
+            scene.fogMode = BABYLON.Scene.FOGMODE_EXP
+            scene.fogDensity = 0.1
 
+            
+            // Skybox
+	        var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1.0}, scene);
+	        var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+	        skyboxMaterial.backFaceCulling = false;
+	        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+	        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	        skyboxMaterial.disableLighting = true;
+	        skybox.material = skyboxMaterial;
             
             
             
