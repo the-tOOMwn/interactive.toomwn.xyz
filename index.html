@@ -91,9 +91,11 @@
         r.y = e.movementY;
         });
 
-        canvas.addEventListener("click", function() {
-        if (!isPointerLocked) {
-            canvas.requestPointerLock();
+        canvas.addEventListener("click", async () => {
+        if(!isPointerLocked) {
+            await canvas.requestPointerLock({
+                unadjustedMovement: true,
+            });
         }
         });
 
