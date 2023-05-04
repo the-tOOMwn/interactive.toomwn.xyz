@@ -61,16 +61,16 @@
             canvas.style.cursor = "default";
         });*/
 
-        var keyboard = {};
-        var vy = 0;
-        var r = {x:0, y:0}
-        var typeing = false;
-        var lastClientY = 0;
+        var keyboard = {}; // This records what keys were pressed (used for movement and stuff)
+        var vy = 0; // Vertical velocity (used for jumping and physics)
+        var r = {x:0, y:0} // rotation
+        var typeing = false; // whether movement commands are ignored
 
+        // records keypresses
         window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
         window.onkeydown = function(e) { keyboard[e.key.toLowerCase()] = true; }
 
-        var isPointerLocked = false;
+        var isPointerLocked = false; // whether pointer is hidden
         /*
         var previousX = null;
         var previousY = null;
@@ -85,8 +85,8 @@
             }
         }*/
 
+        // rotation and hiding mouse pointer stuff
         canvas.addEventListener("mousemove", e => {
-        console.log(e);
         r.x = e.movementX;
         r.y = e.movementY;
         });
@@ -220,7 +220,6 @@
        
         scene.onBeforeRenderObservable.add(() => {
             // Rotate the camera based on the mouse movement
-            console.log(r);
             if (r.x != 0) {
                 camera.rotation.y += r.x / sensitivity;
                 r.x = 0;
