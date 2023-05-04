@@ -49,18 +49,56 @@
         const sensitivity = 500; // larger is slower
 
         var canvas = document.getElementById("renderCanvas");
+        /*
+        canvas.addEventListener("mouseover", function () {
+            scene.onPointerMove = function () {
+                canvas.style.cursor = "none";
+            };
+        });
+
+        canvas.addEventListener("mouseout", function () {
+            scene.onPointerMove = null;
+            canvas.style.cursor = "default";
+        });*/
 
         var keyboard = {};
         var vy = 0;
         var r = {x:0, y:0}
         var typeing = false;
+        var lastClientY = 0;
+
         window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
         window.onkeydown = function(e) { keyboard[e.key.toLowerCase()] = true; }
 
-        window.addEventListener('pointermove', function(event) {
-            // Get the horizontal and vertical mouse movement
-            r.x = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-            r.y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        var isPointerLocked = false;
+        /*
+        var previousX = null;
+        var previousY = null;
+
+        var onPointerMove = function(evt) {
+            r.x = evt.movementX || evt.mozMovementX || evt.webkitMovementX || 0;
+            r.y = evt.movementY || evt.mozMovementY || evt.webkitMovementY || 0;
+            
+            if (r.x === null || r.y === null) {
+                r.x = evt.clientX;
+                r.y = evt.clientY;
+            }
+        }*/
+
+        canvas.addEventListener("mousemove", e => {
+        console.log(e);
+        r.x = e.movementX;
+        r.y = e.movementY;
+        });
+
+        canvas.addEventListener("click", function() {
+        if (!isPointerLocked) {
+            canvas.requestPointerLock();
+        }
+        });
+
+        document.addEventListener("pointerlockchange", function() {
+            isPointerLocked = !isPointerLocked;
         });
 
         var startRenderLoop = function (engine, canvas) {
@@ -176,26 +214,35 @@
             advancedTexture.addControl(input); 
         }
         });
-
+        
+       
         scene.onBeforeRenderObservable.add(() => {
             // Rotate the camera based on the mouse movement
-            camera.rotation.y += r.x / sensitivity;
-            camera.rotation.x += r.y / sensitivity;
+            console.log(r);
+            if (r.x != 0) {
+                camera.rotation.y += r.x / sensitivity;
+                r.x = 0;
+            }
+            if (r.y) {
+                camera.rotation.x += r.y / sensitivity;
+                r.y = 0;
+            }
 
             // Movement vectors in horizontal plane
             var forward = new BABYLON.Vector3(
-                Math.sin(camera.rotation.y) * (keyboard['shift'] == 1 ? 0.1 : 1),
+                Math.sin(camera.rotation.y) * (keyboard['shift'] == 1 ? 1 : 10),
                 0,
-                Math.cos(camera.rotation.y) * (keyboard['shift'] == 1 ? 0.1 : 1)
+                Math.cos(camera.rotation.y) * (keyboard['shift'] == 1 ? 1 : 10)
             );
             var right = new BABYLON.Vector3(
-                Math.sin(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 0.1 : 1),
+                Math.sin(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 1 : 10),
                 0,
-                Math.cos(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 0.1 : 1)
+                Math.cos(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 1 : 10)
             );
-            
+
             // basic movement in the horizontal plane
             var moveDirection = BABYLON.Vector3.Zero();
+            
             if ((keyboard['arrowup'] || keyboard['w']) && typeing == false) {
                 //console.log('w');
                 moveDirection.addInPlace(forward);
@@ -217,7 +264,7 @@
             if ((keyboard[' '] && camera.position.y < 1.2) && typeing == false) {
                 vy += 2; // change this to change the jump power
             }
-            console.log(keyboard);
+            //console.log(keyboard);
             //console.log(camera.position);
             if (camera.position.y > 1) { 
                 vy -= 0.4;
