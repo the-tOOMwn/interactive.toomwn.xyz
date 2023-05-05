@@ -1,6 +1,6 @@
 # Blender 3.5.1
 # www.blender.org
-mtllib 1block.mtl
+mtllib soundbox.mtl
 o Cube
 v 1.000000 1.000000 -1.000000
 v 1.000000 -1.000000 -1.000000
