@@ -145,16 +145,12 @@
         // Noooo, don't do this. This makes movement scuffed.
         //camera.attachControl(canvas, true);
         
-
-        
         var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 150, height: 150}, scene);
 
         const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
         groundMaterial.emissiveColor = new BABYLON.Color4(0.8359375, 0.4140625, 0.234375)
         ground.material = groundMaterial;
         ground.checkCollisions = true;
-        
-        
         
         // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
         var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 50, 10), scene)
@@ -169,9 +165,7 @@
 
         light.excludedMeshes.push(ground)
         
-        
         scene.clearColor = new BABYLON.Color3(89/256, 147/256, 255/256) // The colour of the sky
-
         
         scene.fogMode = BABYLON.Scene.FOGMODE_EXP
         scene.fogDensity = 0.02
@@ -181,8 +175,6 @@
         newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
         newMeshes[0].position = new BABYLON.Vector3(0, 10, 10);
         newMeshes[0].checkCollisions = true;
-
-
         });
 
         const soundbox = BABYLON.SceneLoader.ImportMesh("", "models/", "soundbox.obj", scene, function(newMeshes){
@@ -201,6 +193,26 @@
 
         music1.setPosition(new BABYLON.Vector3(0, 1, 0));
 
+        // create a grey material for the cube
+        var rockMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
+        rockMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+
+        var rocks = [];
+
+        function addRock(cx, cz, r) {
+            var x = (2+Math.random()*2-1)*0.1;
+            var y = 5;
+            var z = (2+Math.random()*2-1)*0.1;
+            var rock = BABYLON.MeshBuilder.CreateBox("box", { width: x, height: y, depth: z }, scene);
+            rock.material = rockMaterial;
+            rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, -2.49+Math.random()/10, cz+Math.random()*r*2-r);
+            rocks.push(rock);
+        }
+
+        for (var i = 0; i < 200; i += 1) {
+            addRock(0,0,50);
+        }
+
         window.addEventListener("keydown", function (evt) {
         if (evt.keyCode === 8) {
 
@@ -216,17 +228,31 @@
             advancedTexture.addControl(input); 
         }
         });
-        
        
         scene.onBeforeRenderObservable.add(() => {
             // Rotate the camera based on the mouse movement
-            if (r.x != 0) {
-                camera.rotation.y += r.x / sensitivity;
-                r.x = 0;
-            }
-            if (r.y) {
-                camera.rotation.x += r.y / sensitivity;
-                r.y = 0;
+            if (isPointerLocked) {
+                if (r.x != 0) {
+                    camera.rotation.y += r.x / sensitivity;
+                    r.x = 0;
+                }
+                if (r.y) {
+                    camera.rotation.x += r.y / sensitivity;
+                    r.y = 0;
+                }
+            } else {
+                // create a new 2D GUI element
+                var guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+                // create a text block and add it to the GUI
+                var textBlock = new BABYLON.GUI.TextBlock();
+                textBlock.text = "Click to enter the non-game game!";
+                textBlock.color = "white";
+                textBlock.fontSize = 72;
+                guiTexture.addControl(textBlock);
+                setTimeout(function() {
+                    guiTexture.removeControl(textBlock);
+                }, 1);
             }
 
             // Movement vectors in horizontal plane
