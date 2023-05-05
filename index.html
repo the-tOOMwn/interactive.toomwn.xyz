@@ -125,7 +125,7 @@
         ground.checkCollisions = true;
         
         // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-        var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 50, 10), scene)
+        var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 250, 0), scene)
         // const light = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(1, 50, 1), scene)
         light.diffuse = new BABYLON.Color3(1, 1, 1);
         
@@ -168,20 +168,64 @@
         var rockMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
         rockMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 
-        var rocks = [];
+        var cloudMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
+        cloudMaterial.diffuseColor = new BABYLON.Color3(1, 1, 1);
+        cloudMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
 
-        function addRock(cx, cz, r) {
+        var rocks = [];
+        var clouds = [];
+
+        function addRock(cx, cz, r, noRotate=false) {
             var x = (2+Math.random()*2-1)*0.1;
-            var y = 5;
+            var y = 0.25;
             var z = (2+Math.random()*2-1)*0.1;
+            var rx = noRotate? 0 : Math.random()*Math.PI/24;
+            var ry = noRotate? 0 : Math.PI*2*Math.random();
             var rock = BABYLON.MeshBuilder.CreateBox("box", { width: x, height: y, depth: z }, scene);
             rock.material = rockMaterial;
-            rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, -2.49+Math.random()/10, cz+Math.random()*r*2-r);
+            rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, -0.11+Math.random()/10, cz+Math.random()*r*2-r);
+            rock.rotation.x = rx;
+            rock.rotation.y = ry;
             rocks.push(rock);
         }
 
-        for (var i = 0; i < 200; i += 1) { // add 200 rocks to the map
+        function addCloud(cx, cz, r, h, noRotate=false) {
+            var x = (2+Math.random()*2-1)*10;
+            var y = 2+Math.random()*4;
+            var z = (2+Math.random()*2-1)*10;
+            var ry = noRotate? 0 : Math.PI*2*Math.random();
+            var cloud = BABYLON.MeshBuilder.CreateBox("box", { width: x, height: y, depth: z }, scene);
+            cloud.material = cloudMaterial;
+            cloud.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, h, cz+Math.random()*r*2-r);
+            cloud.rotation.y = ry;
+            clouds.push(cloud);
+        }
+        function addLight(x, y, z) {
+            var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(x,y,z), scene);
+            light.position = new BABYLON.Vector3(x, y, z);
+            light.direction = new BABYLON.Vector3(0, -1, 0);
+            light.diffuse = new BABYLON.Color3(1, 1, 1);
+            light.excludedMeshes.push(ground);
+            light.intensity = 0.1;
+            light.setEnabled(true);
+            console.log(light.position.x, light.position.y, light.position.z);
+            clouds.push(light);
+        }
+
+        for (var i = 0; i < 200; i += 1) { // add rocks to the map
             addRock(0,0,50);
+        }
+
+        var maxx = 500;
+        var maxz = 500;
+        for (var i = 0; i < 30; i += 1) { // add clouds to the map (1 cloud is a group of small rectangles)
+            var x = Math.random()*maxx*2-maxx;
+            var z = Math.random()*maxz*2-maxz;
+            var h = 75 + Math.random()*25;
+            for (var j = 0; j < 15; j += 1) {
+                addCloud(x,z,15,h,true);
+            }
+            //addLight(x,h-1,z);
         }
 
         window.addEventListener("keydown", function (evt) {
