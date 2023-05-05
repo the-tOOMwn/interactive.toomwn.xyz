@@ -93,10 +93,15 @@
         var sceneToRender = null;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
         var createScene = function () {
+        
+        // default values
+
+        var musicvalue = 1
+
         // This creates a basic Babylon Scene object (non-mesh)
         var scene = new BABYLON.Scene(engine);
 
-    	var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
+    	  var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
         // by default all music plays at volume
         var musicvalue = 1
@@ -141,7 +146,7 @@
         
         scene.fogMode = BABYLON.Scene.FOGMODE_EXP
         scene.fogDensity = 0.02
-            
+ 
         // just adding a box
         const box = BABYLON.SceneLoader.ImportMesh("", "models/", "soundbox.obj", scene, function(newMeshes){
         newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
@@ -190,6 +195,7 @@
             rocks.push(rock);
         }
 
+
         function addCloud(cx, cz, r, h, noRotate=false) {
             var x = (2+Math.random()*2-1)*10;
             var y = 2+Math.random()*4;
@@ -229,6 +235,17 @@
             //addLight(x,h-1,z);
         }
 
+        // GUI, includes settings button
+        var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        const button = BABYLON.GUI.Button.CreateImageOnlyButton("settings", "images/settings.png");
+        button.left = "-900px";
+        button.top = "-450px";
+        button.width = "40px";
+        button.height = "40px";
+        advancedTexture.addControl(button); 
+
+        /* intermediate terminal code
+
         window.addEventListener("keydown", function (evt) {
         if (evt.keyCode === 8) {
 
@@ -243,7 +260,8 @@
             input.background = "black";
             advancedTexture.addControl(input); 
         }
-        });
+
+        });*/
        
         scene.onBeforeRenderObservable.add(() => {
             // Rotate the camera based on the mouse movement
@@ -301,7 +319,7 @@
                     sprint = 25;
                 }
             }
-            console.log(sprint);
+            //console.log(sprint);
 
             if ((keyboard['arrowdown'] || keyboard['s']) && typeing == false) {
                 //console.log('s');
@@ -339,6 +357,49 @@
             camera.position.addInPlace(moveDirection);
             //console.log(camera.position.x,camera.position.y,camera.position.z);
         });
+
+        //});
+        
+        /*
+        window.addEventListener("keydown", function (evt) {
+        if (evt.keyCode === 32) {
+            // add jump :)
+        }
+        });
+        */
+
+        /* Skybox
+		var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:100.0}, scene);
+		var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyboxMaterial.backFaceCulling = false;
+		skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+		skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skyboxMaterial.disableLighting = true;
+		skybox.material = skyboxMaterial;
+        */
+
+        /* monkey code
+
+        const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
+        monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#5c3004");
+
+        for(let k = 1; k<10; k++){
+
+            for(let i = -2; i<3; i++){
+
+                for(let j = -1; j < 3; j++) {
+
+                    BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
+                    newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
+                    newMeshes[0].position = new BABYLON.Vector3(2.1*i, 1.1*k, 2.1*j);
+                    newMeshes[0].material = monkeyMaterial;
+                    });
+                }
+            }
+
+        }
+
+        */
 
         // this stuff is async stuff, DONT TOUCHY!!!
         return scene;
