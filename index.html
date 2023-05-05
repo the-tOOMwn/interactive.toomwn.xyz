@@ -49,17 +49,6 @@
         const sensitivity = 500; // larger is slower
 
         var canvas = document.getElementById("renderCanvas");
-        /*
-        canvas.addEventListener("mouseover", function () {
-            scene.onPointerMove = function () {
-                canvas.style.cursor = "none";
-            };
-        });
-
-        canvas.addEventListener("mouseout", function () {
-            scene.onPointerMove = null;
-            canvas.style.cursor = "default";
-        });*/
 
         var keyboard = {}; // This records what keys were pressed (used for movement and stuff)
         var vy = 0; // Vertical velocity (used for jumping and physics)
@@ -71,19 +60,6 @@
         window.onkeydown = function(e) { keyboard[e.key.toLowerCase()] = true; }
 
         var isPointerLocked = false; // whether pointer is hidden
-        /*
-        var previousX = null;
-        var previousY = null;
-
-        var onPointerMove = function(evt) {
-            r.x = evt.movementX || evt.mozMovementX || evt.webkitMovementX || 0;
-            r.y = evt.movementY || evt.mozMovementY || evt.webkitMovementY || 0;
-            
-            if (r.x === null || r.y === null) {
-                r.x = evt.clientX;
-                r.y = evt.clientY;
-            }
-        }*/
 
         // rotation and hiding mouse pointer stuff
         canvas.addEventListener("mousemove", e => {
@@ -140,10 +116,6 @@
 
         // This targets the camera to scene origin
         camera.setTarget(BABYLON.Vector3.Zero());
-
-        // This attaches the camera to the canvas
-        // Noooo, don't do this. This makes movement scuffed.
-        //camera.attachControl(canvas, true);
         
         var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 150, height: 150}, scene);
 
@@ -156,7 +128,6 @@
         var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 50, 10), scene)
         // const light = new BABYLON.PointLight("pointLight", new BABYLON.Vector3(1, 50, 1), scene)
         light.diffuse = new BABYLON.Color3(1, 1, 1);
-
         
         // Default intensity is 1. Let's dim the light a small amount
         light.intensity = 1;
@@ -209,7 +180,7 @@
             rocks.push(rock);
         }
 
-        for (var i = 0; i < 200; i += 1) {
+        for (var i = 0; i < 200; i += 1) { // add 200 rocks to the map
             addRock(0,0,50);
         }
 
@@ -291,8 +262,7 @@
             if ((keyboard[' '] && camera.position.y <= 1) && typeing == false) {
                 vy += 0.15; // change this to change the jump power
             } 
-            //console.log(keyboard);
-            //console.log(camera.position);
+
             if (camera.position.y > 1) { 
                 vy -= 0.01;
             }
@@ -308,77 +278,12 @@
             if (keyboard['shift'] && typeing == false) {
                 moveDirection.addInPlace(shift);
             }
-
-            //moveDirection.normalize();
-            //moveDirection.scaleInPlace(0.1);
             
             camera.position.addInPlace(moveDirection);
             console.log(camera.position.x,camera.position.y,camera.position.z);
         });
-        
-        /*
-        window.addEventListener("keydown", function (evt) {
-        if (evt.keyCode === 32) {
-            // add jump :)
-        }
-        });
-        */
-
-        /* Skybox
-		var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:100.0}, scene);
-		var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-		skyboxMaterial.backFaceCulling = false;
-		skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
-		skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-		skyboxMaterial.disableLighting = true;
-		skybox.material = skyboxMaterial;
-        */
-            
-            
-            
-        /* monkey code
-
-        const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
-        monkeyMaterial.emissiveColor = new BABYLON.Color4.FromHexString("#5c3004");
-
-        for(let k = 1; k<10; k++){
-
-            for(let i = -2; i<3; i++){
-
-                for(let j = -1; j < 3; j++) {
-
-                    BABYLON.SceneLoader.ImportMesh("", "models/", "suzanne.obj", scene, function(newMeshes){
-                    newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
-                    newMeshes[0].position = new BABYLON.Vector3(2.1*i, 1.1*k, 2.1*j);
-                    newMeshes[0].material = monkeyMaterial;
-                    });
-                }
-            }
-
-        }
-
-        */
-
-        /* code to enter things in, like a terminal of sorts? this would be so one could enter dev mode and fly around and stuff
-            ar advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
-            advancedTexture.background = 'green'
-
-            const initialText = "This is some example text. \nIt's quite long, so will need to be displayed across multiple lines. \n\nIt also has several line breaks.";
-            // The "\n" in the text indicates a line break
-            // Line breaks are added by pressing 'return' when editing text
-
-            var inputTextArea = new BABYLON.GUI.InputTextArea('Example InputTextArea', initialText);
-            
-            inputTextArea.color = "white";
-            inputTextArea.fontSize = 48;
-
-            advancedTexture.addControl(inputTextArea);v
-
-
-        */
 
         // this stuff is async stuff, DONT TOUCHY!!!
-
         return scene;
         };
         window.initFunction = async function() {
