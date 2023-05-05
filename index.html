@@ -65,7 +65,7 @@
         var vy = 0; // Vertical velocity (used for jumping and physics)
         var r = {x:0, y:0} // rotation
         var typeing = false; // whether movement commands are ignored
-
+        
         // records keypresses
         window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
         window.onkeydown = function(e) { keyboard[e.key.toLowerCase()] = true; }
@@ -231,14 +231,14 @@
 
             // Movement vectors in horizontal plane
             var forward = new BABYLON.Vector3(
-                Math.sin(camera.rotation.y) * (keyboard['shift'] == 1 ? 1 : 10),
+                Math.sin(camera.rotation.y) * (keyboard['shift'] == 1 ? 0.1 : 10),
                 0,
-                Math.cos(camera.rotation.y) * (keyboard['shift'] == 1 ? 1 : 10)
+                Math.cos(camera.rotation.y) * (keyboard['shift'] == 1 ? 0.1 : 10)
             );
             var right = new BABYLON.Vector3(
-                Math.sin(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 1 : 10),
+                Math.sin(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 0.1 : 10),
                 0,
-                Math.cos(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 1 : 10)
+                Math.cos(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 0.1 : 10)
             );
 
             // basic movement in the horizontal plane
@@ -262,13 +262,13 @@
             }
 
             // Jumping
-            if ((keyboard[' '] && camera.position.y < 1.2) && typeing == false) {
-                vy += 2; // change this to change the jump power
+            if ((keyboard[' '] && camera.position.y <= 1) && typeing == false) {
+                vy += 3; // change this to change the jump power
             }
             //console.log(keyboard);
             //console.log(camera.position);
             if (camera.position.y > 1) { 
-                vy -= 0.4;
+                vy -= 0.2;
             }
             if (camera.position.y < 1) { // The earth is flat (literally)
                 camera.position.y = 1;
@@ -287,6 +287,7 @@
             moveDirection.scaleInPlace(0.1);
             
             camera.position.addInPlace(moveDirection);
+            console.log(camera.position.x,camera.position.y,camera.position.z);
         });
         
         /*
