@@ -51,6 +51,7 @@
         var canvas = document.getElementById("renderCanvas");
 
         var keyboard = {}; // This records what keys were pressed (used for movement and stuff)
+        var sprint = 0; // used for sprinting
         var vy = 0; // Vertical velocity (used for jumping and physics)
         var r = {x:0, y:0} // rotation
         var typeing = false; // whether movement commands are ignored
@@ -281,14 +282,27 @@
                 0,
                 Math.cos(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 0.02 : 0.1)
             );
+            var forwardSprint = new BABYLON.Vector3(
+                Math.sin(camera.rotation.y)*0.25,
+                0,
+                Math.cos(camera.rotation.y)*0.25
+            );
 
             // basic movement in the horizontal plane
             var moveDirection = BABYLON.Vector3.Zero();
-            
+            sprint -= 1;
             if ((keyboard['arrowup'] || keyboard['w']) && typeing == false) {
                 //console.log('w');
-                moveDirection.addInPlace(forward);
+                if (sprint > 0 && sprint < 23 && keyboard['shift'] != true) {
+                    moveDirection.addInPlace(camera.position.y > 1 ? forwardSprint.scaleInPlace(1.2) : forwardSprint);
+                    sprint = 5;
+                } else {
+                    moveDirection.addInPlace(camera.position.y > 1 ? forward.scaleInPlace(1.1) : forward);
+                    sprint = 25;
+                }
             }
+            console.log(sprint);
+
             if ((keyboard['arrowdown'] || keyboard['s']) && typeing == false) {
                 //console.log('s');
                 moveDirection.subtractInPlace(forward);
@@ -316,15 +330,14 @@
             }
             var vertivalMovement = new BABYLON.Vector3(0, vy, 0);
             moveDirection.addInPlace(vertivalMovement);
-
             // Sneaking
             var shift = new BABYLON.Vector3(0, -0.2, 0);
             if (keyboard['shift'] && typeing == false) {
                 moveDirection.addInPlace(shift);
             }
-            
+
             camera.position.addInPlace(moveDirection);
-            console.log(camera.position.x,camera.position.y,camera.position.z);
+            //console.log(camera.position.x,camera.position.y,camera.position.z);
         });
 
         // this stuff is async stuff, DONT TOUCHY!!!
