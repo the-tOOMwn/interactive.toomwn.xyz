@@ -101,7 +101,7 @@
         scene.clearColor = new BABYLON.Color3(89/256, 147/256, 255/256) // The colour of the sky
         scene.fogMode = BABYLON.Scene.FOGMODE_EXP
         scene.fogDensity = 0.02
-            
+ 
         // just adding a box
         const box = BABYLON.SceneLoader.ImportMesh("", "models/", "soundbox.obj", scene, function(newMeshes){
         newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
@@ -124,6 +124,15 @@
             rolloffFactor: 1.1,
         });
         music1.setPosition(soundboxposition);
+
+        // GUI, includes settings button
+        var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        const button = BABYLON.GUI.Button.CreateImageOnlyButton("settings", "images/settings.png");
+        button.left = "-900px";
+        button.top = "-450px";
+        button.width = "40px";
+        button.height = "40px";
+        advancedTexture.addControl(button); 
 
         /* intermediate terminal code
         window.addEventListener("keydown", function (evt) {
@@ -160,9 +169,7 @@
 		skyboxMaterial.disableLighting = true;
 		skybox.material = skyboxMaterial;
         */
-            
-            
-            
+
         /* monkey code
 
         const monkeyMaterial = new BABYLON.StandardMaterial("monkeyMaterial", scene);
