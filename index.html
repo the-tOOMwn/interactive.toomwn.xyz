@@ -46,7 +46,62 @@
 <body>
     <div id="canvasZone"><canvas id="renderCanvas"></canvas></div>
     <script>
+        const sensitivity = 500; // larger is slower
+
         var canvas = document.getElementById("renderCanvas");
+        /*
+        canvas.addEventListener("mouseover", function () {
+            scene.onPointerMove = function () {
+                canvas.style.cursor = "none";
+            };
+        });
+
+        canvas.addEventListener("mouseout", function () {
+            scene.onPointerMove = null;
+            canvas.style.cursor = "default";
+        });*/
+
+        var keyboard = {}; // This records what keys were pressed (used for movement and stuff)
+        var vy = 0; // Vertical velocity (used for jumping and physics)
+        var r = {x:0, y:0} // rotation
+        var typeing = false; // whether movement commands are ignored
+
+        // records keypresses
+        window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
+        window.onkeydown = function(e) { keyboard[e.key.toLowerCase()] = true; }
+
+        var isPointerLocked = false; // whether pointer is hidden
+        /*
+        var previousX = null;
+        var previousY = null;
+
+        var onPointerMove = function(evt) {
+            r.x = evt.movementX || evt.mozMovementX || evt.webkitMovementX || 0;
+            r.y = evt.movementY || evt.mozMovementY || evt.webkitMovementY || 0;
+            
+            if (r.x === null || r.y === null) {
+                r.x = evt.clientX;
+                r.y = evt.clientY;
+            }
+        }*/
+
+        // rotation and hiding mouse pointer stuff
+        canvas.addEventListener("mousemove", e => {
+        r.x = e.movementX;
+        r.y = e.movementY;
+        });
+
+        canvas.addEventListener("click", async () => {
+        if(!isPointerLocked) {
+            await canvas.requestPointerLock({
+                unadjustedMovement: true,
+            });
+        }
+        });
+
+        document.addEventListener("pointerlockchange", function() {
+            isPointerLocked = !isPointerLocked;
+        });
 
         var startRenderLoop = function (engine, canvas) {
             engine.runRenderLoop(function () {
@@ -61,10 +116,6 @@
         var sceneToRender = null;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
         var createScene = function () {
-
-
-        // by default all music plays at volume
-        var musicvalue = 1
 
         // This creates a basic Babylon Scene object (non-mesh)
         var scene = new BABYLON.Scene(engine);
@@ -89,7 +140,6 @@
         groundMaterial.emissiveColor = new BABYLON.Color4(0.8359375, 0.4140625, 0.234375)
         ground.material = groundMaterial;
         ground.checkCollisions = true;
-
         // lighting
         var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(10, 50, 10), scene)
         light.diffuse = new BABYLON.Color3(1, 1, 1);
@@ -99,6 +149,7 @@
         
         // This changes the colour of the sky and adds a fog mechanic
         scene.clearColor = new BABYLON.Color3(89/256, 147/256, 255/256) // The colour of the sky
+
         scene.fogMode = BABYLON.Scene.FOGMODE_EXP
         scene.fogDensity = 0.02
             
@@ -107,6 +158,7 @@
         newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
         newMeshes[0].position = new BABYLON.Vector3(0, 10, 10)
         newMeshes[0].checkCollisions = true;
+
         });
 
         // soundbox (spatial audio) 
@@ -123,9 +175,11 @@
             distanceModel: "exponential",
             rolloffFactor: 1.1,
         });
+
         music1.setPosition(soundboxposition);
 
         /* intermediate terminal code
+
         window.addEventListener("keydown", function (evt) {
         if (evt.keyCode === 8) {
 
@@ -141,6 +195,78 @@
             advancedTexture.addControl(input); 
         }
         });
+       
+        scene.onBeforeRenderObservable.add(() => {
+            // Rotate the camera based on the mouse movement
+            if (r.x != 0) {
+                camera.rotation.y += r.x / sensitivity;
+                r.x = 0;
+            }
+            if (r.y) {
+                camera.rotation.x += r.y / sensitivity;
+                r.y = 0;
+            }
+
+            // Movement vectors in horizontal plane
+            var forward = new BABYLON.Vector3(
+                Math.sin(camera.rotation.y) * (keyboard['shift'] == 1 ? 1 : 10),
+                0,
+                Math.cos(camera.rotation.y) * (keyboard['shift'] == 1 ? 1 : 10)
+            );
+            var right = new BABYLON.Vector3(
+                Math.sin(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 1 : 10),
+                0,
+                Math.cos(camera.rotation.y + Math.PI / 2) * (keyboard['shift'] == 1 ? 1 : 10)
+            );
+
+            // basic movement in the horizontal plane
+            var moveDirection = BABYLON.Vector3.Zero();
+            
+            if ((keyboard['arrowup'] || keyboard['w']) && typeing == false) {
+                //console.log('w');
+                moveDirection.addInPlace(forward);
+            }
+            if ((keyboard['arrowdown'] || keyboard['s']) && typeing == false) {
+                //console.log('s');
+                moveDirection.subtractInPlace(forward);
+            }
+            if ((keyboard['arrowright'] || keyboard['d']) && typeing == false) {
+                //console.log('d');
+                moveDirection.addInPlace(right);
+            }
+            if ((keyboard['arrowleft'] || keyboard['a']) && typeing == false) {
+                //console.log('a');
+                moveDirection.subtractInPlace(right);
+            }
+
+            // Jumping
+            if ((keyboard[' '] && camera.position.y < 1.2) && typeing == false) {
+                vy += 2; // change this to change the jump power
+            }
+            //console.log(keyboard);
+            //console.log(camera.position);
+            if (camera.position.y > 1) { 
+                vy -= 0.4;
+            }
+            if (camera.position.y < 1) { // The earth is flat (literally)
+                camera.position.y = 1;
+                vy=0;
+            }
+            var vertivalMovement = new BABYLON.Vector3(0, vy, 0);
+            moveDirection.addInPlace(vertivalMovement);
+
+            // Sneaking
+            var shift = new BABYLON.Vector3(0, -0.5, 0);
+            if (keyboard['shift'] && typeing == false) {
+                moveDirection.addInPlace(shift);
+            }
+
+            moveDirection.normalize();
+            moveDirection.scaleInPlace(0.1);
+            
+            camera.position.addInPlace(moveDirection);
+        });
+
         */
         
         /*
@@ -183,6 +309,7 @@
             }
 
         }
+
         */
 
         // this stuff is async stuff, DONT TOUCHY!!!
