@@ -109,7 +109,13 @@
         newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
         newMeshes[0].position = new BABYLON.Vector3(0, 10, 10)
         newMeshes[0].checkCollisions = true;
+        });
 
+        // adding multiple "Houses"
+        const house1 = BABYLON.SceneLoader.ImportMesh("", "models/", "soundbox.obj", scene, function(newMeshes){
+        newMeshes[0].scaling = new BABYLON.Vector3(1, 2, 1);
+        newMeshes[0].position = new BABYLON.Vector3(0, 0, 10)
+        newMeshes[0].checkCollisions = true;
         });
 
         // soundbox (spatial audio) 
