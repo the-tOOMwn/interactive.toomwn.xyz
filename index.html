@@ -101,7 +101,7 @@
         // This creates a basic Babylon Scene object (non-mesh)
         var scene = new BABYLON.Scene(engine);
 
-    	  var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
+    	var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 5, -10), scene);
 
         // by default all music plays at volume
         var musicvalue = 1
@@ -123,7 +123,20 @@
         // This targets the camera to scene origin
         camera.setTarget(BABYLON.Vector3.Zero());
         
-        var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 150, height: 150}, scene);
+        // create a flat ground
+        var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 200, height: 200, subdivisions: 50}, scene);
+
+        // get the vertex data from the ground mesh
+        var vertexData = BABYLON.VertexData.ExtractFromMesh(ground);
+
+        // modify the height of each vertex randomly
+        var positions = vertexData.positions;
+        for (var i = 0; i < positions.length; i += 3) {
+            positions[i + 1] = Math.random()/5;
+        }
+
+        // apply the modified vertex data to the ground mesh
+        vertexData.applyToMesh(ground);
 
         const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
         groundMaterial.emissiveColor = new BABYLON.Color4(0.8359375, 0.4140625, 0.234375)
@@ -184,6 +197,7 @@
         var rocks = [];
         var clouds = [];
         var cacti = [];
+        var dunes = [];
 
         function addRock(cx, cz, r, noRotate=false) {
             var x = (2+Math.random()*2-1)*0.1;
@@ -193,7 +207,7 @@
             var ry = noRotate? 0 : Math.PI*2*Math.random();
             var rock = BABYLON.MeshBuilder.CreateBox("box", { width: x, height: y, depth: z }, scene);
             rock.material = rockMaterial;
-            rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, -0.11+Math.random()/10, cz+Math.random()*r*2-r);
+            rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, Math.random()/10, cz+Math.random()*r*2-r);
             rock.rotation.x = rx;
             rock.rotation.y = ry;
             rocks.push(rock);
@@ -210,6 +224,7 @@
             cloud.rotation.y = ry;
             clouds.push(cloud);
         }
+
         function addLight(x, y, z) { // obsolete
             var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(x,y,z), scene);
             light.position = new BABYLON.Vector3(x, y, z);
@@ -221,7 +236,6 @@
             console.log(light.position.x, light.position.y, light.position.z);
             clouds.push(light);
         }
-
 
         function addCactus(cx, cz, r, noRotate=false) {
             var dim = 0.2+Math.random()*0.1;
