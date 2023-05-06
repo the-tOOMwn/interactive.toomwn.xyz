@@ -340,7 +340,7 @@
         particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
         particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
         particleSystem.minSize = 0.05;
-        particleSystem.maxSize = 0.1;
+        particleSystem.maxSize = 0.05;
         particleSystem.minLifeTime = 0.3;
         particleSystem.maxLifeTime = 1.5;
         particleSystem.emitRate = 50000;
@@ -348,8 +348,8 @@
         particleSystem.direction2 = new BABYLON.Vector3(1, 1, 1);
         particleSystem.minAngularSpeed = 0;
         particleSystem.maxAngularSpeed = Math.PI;
-        particleSystem.minEmitPower = 10;
-        particleSystem.maxEmitPower = 30;
+        particleSystem.minEmitPower = 100;
+        particleSystem.maxEmitPower = 150;
         particleSystem.updateSpeed = 0.005;
         particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
         particleSystem.start();
