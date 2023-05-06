@@ -109,20 +109,15 @@ light.excludedMeshes.push(ground)
 
 scene.clearColor = new BABYLON.Color3(89/256, 147/256, 255/256) // The colour of the sky
 
-scene.fogMode = BABYLON.Scene.FOGMODE_EXP
-scene.fogDensity = 0.02
+// White clouds
+scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+scene.fogColor = new BABYLON.Color3(0.9, 0.9, 0.9);
+scene.fogDensity = 0.01;
 
 // just adding a box
 const box = BABYLON.SceneLoader.ImportMesh("", "models/", "soundbox.obj", scene, function(newMeshes){
 newMeshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
 newMeshes[0].position = new BABYLON.Vector3(0, 10, 10);
-newMeshes[0].checkCollisions = true;
-});
-
-// adding multiple "Houses"
-const house1 = BABYLON.SceneLoader.ImportMesh("", "models/", "soundbox.obj", scene, function(newMeshes){
-newMeshes[0].scaling = new BABYLON.Vector3(1, 2, 1);
-newMeshes[0].position = new BABYLON.Vector3(0, 0, 10)
 newMeshes[0].checkCollisions = true;
 });
 
@@ -143,6 +138,9 @@ const music1 = new BABYLON.Sound("Music", "music/verslaflamme.mp3"/*"music/e.wav
 music1.setPosition(new BABYLON.Vector3(0, 1, 0));
 
 // create materials
+var sandMaterial = new BABYLON.StandardMaterial("sandMaterial", scene);
+sandMaterial.diffuseColor = new BABYLON.Color3(0.82, 0.66, 0.42);
+
 var rockMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
 rockMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 
@@ -286,51 +284,30 @@ if (evt.keyCode === 8) {
 }
 
 });*/
-/*
-var particleSystem = new BABYLON.ParticleSystem("sandstorm", 5000, scene);
-particleSystem.particleTexture = new BABYLON.Texture("textures/sand.png", scene);
+
+var particleSystem = new BABYLON.ParticleSystem("sandstorm", 100000, scene);
+particleSystem.particleTexture = new BABYLON.Texture("textures/sand3.png", scene);
 particleSystem.emitter = new BABYLON.Vector3(0, 10, 0);
-particleSystem.minEmitBox = new BABYLON.Vector3(-100, 0, -100);
-particleSystem.maxEmitBox = new BABYLON.Vector3(100, 0, 100);
+particleSystem.minEmitBox = new BABYLON.Vector3(-100, -10, -100);
+particleSystem.maxEmitBox = new BABYLON.Vector3(100, 20, 100);
 particleSystem.color1 = new BABYLON.Color4(1, 1, 1, 1);
 particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
 particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
-particleSystem.minSize = 0.1;
-particleSystem.maxSize = 0.5;
+particleSystem.minSize = 0.05;
+particleSystem.maxSize = 0.05;
 particleSystem.minLifeTime = 0.3;
 particleSystem.maxLifeTime = 1.5;
-particleSystem.emitRate = 2000;
-particleSystem.direction1 = new BABYLON.Vector3(-1, -2, -1);
-particleSystem.direction2 = new BABYLON.Vector3(1, -2, 1);
+particleSystem.emitRate = 50000;
+particleSystem.direction1 = new BABYLON.Vector3(-1, -1, -1);
+particleSystem.direction2 = new BABYLON.Vector3(1, 1, 1);
 particleSystem.minAngularSpeed = 0;
 particleSystem.maxAngularSpeed = Math.PI;
-particleSystem.minEmitPower = 1;
-particleSystem.maxEmitPower = 3;
+particleSystem.minEmitPower = 100;
+particleSystem.maxEmitPower = 150;
 particleSystem.updateSpeed = 0.005;
 particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
-*/
-var sandMaterial = new BABYLON.StandardMaterial("sandMaterial", scene);
-sandMaterial.diffuseTexture = new BABYLON.Texture("textures/sand.jpg", scene);
-sandMaterial.diffuseTexture.uScale = 100;
-sandMaterial.diffuseTexture.vScale = 100;
-sandMaterial.bumpTexture = new BABYLON.Texture("textures/noise.jpg", scene);
-sandMaterial.bumpTexture.uScale = 100;
-sandMaterial.bumpTexture.vScale = 100;
-sandMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-sandMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
-sandMaterial.alpha = 0.9;
+particleSystem.start();
 
-sandMaterial.customShaderNameResolve = function (shaderName, uniforms, samplers, defines) {
-    defines.push("#define SANDSTORM");
-
-    samplers.push("uNoiseSampler");
-
-    uniforms.push("uTime");
-    uniforms.push("uWindDirection");
-    uniforms.push("uWindForce");
-
-    return shaderName;
-};
 scene.onBeforeRenderObservable.add(() => {
     // Rotate the camera based on the mouse movement
     if (isPointerLocked) {
@@ -342,11 +319,12 @@ scene.onBeforeRenderObservable.add(() => {
             camera.rotation.x += r.y / sensitivity;
             r.y = 0;
         }
+        console.log(`Pointer lock: Enabled`);
     } else {
+        console.log(`Pointer lock: Disabled`);
         /*
         // create a new 2D GUI element
         var guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-
         // create a text block and add it to the GUI
         var textBlock = new BABYLON.GUI.TextBlock();
         textBlock.text = "Click to enter the non-game game!";
