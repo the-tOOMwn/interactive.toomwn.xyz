@@ -55,7 +55,7 @@
         var vy = 0; // Vertical velocity (used for jumping and physics)
         var r = {x:0, y:0} // rotation
         var typeing = false; // whether movement commands are ignored
-        
+
         // records keypresses
         window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
         window.onkeydown = function(e) { keyboard[e.key.toLowerCase()] = true; }
@@ -387,7 +387,6 @@
                 /*
                 // create a new 2D GUI element
                 var guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-
                 // create a text block and add it to the GUI
                 var textBlock = new BABYLON.GUI.TextBlock();
                 textBlock.text = "Click to enter the non-game game!";
