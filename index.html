@@ -184,6 +184,9 @@
         music1.setPosition(new BABYLON.Vector3(0, 1, 0));
 
         // create materials
+        var sandMaterial = new BABYLON.StandardMaterial("sandMaterial", scene);
+        sandMaterial.diffuseColor = new BABYLON.Color3(0.82, 0.66, 0.42);
+
         var rockMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
         rockMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 
@@ -329,7 +332,7 @@
         });*/
         
         var particleSystem = new BABYLON.ParticleSystem("sandstorm", 100000, scene);
-        particleSystem.particleTexture = new BABYLON.Texture("textures/sand.png", scene);
+        particleSystem.particleTexture = new BABYLON.Texture("textures/sand3.png", scene);
         particleSystem.emitter = new BABYLON.Vector3(0, 10, 0);
         particleSystem.minEmitBox = new BABYLON.Vector3(-100, -10, -100);
         particleSystem.maxEmitBox = new BABYLON.Vector3(100, 20, 100);
@@ -337,7 +340,7 @@
         particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
         particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
         particleSystem.minSize = 0.05;
-        particleSystem.maxSize = 0.2;
+        particleSystem.maxSize = 0.1;
         particleSystem.minLifeTime = 0.3;
         particleSystem.maxLifeTime = 1.5;
         particleSystem.emitRate = 50000;
