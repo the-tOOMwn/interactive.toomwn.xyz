@@ -170,16 +170,20 @@
 
         music1.setPosition(new BABYLON.Vector3(0, 1, 0));
 
-        // create a grey material for the cube
+        // create materials
         var rockMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
         rockMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 
-        var cloudMaterial = new BABYLON.StandardMaterial("rockMaterial", scene);
+        var cactusMaterial = new BABYLON.StandardMaterial("cactusMaterial", scene);
+        cactusMaterial.diffuseColor = new BABYLON.Color3(0, 1, 0);
+
+        var cloudMaterial = new BABYLON.StandardMaterial("cloudMaterial", scene);
         cloudMaterial.diffuseColor = new BABYLON.Color3(1, 1, 1);
         cloudMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
 
         var rocks = [];
         var clouds = [];
+        var cacti = [];
 
         function addRock(cx, cz, r, noRotate=false) {
             var x = (2+Math.random()*2-1)*0.1;
@@ -195,7 +199,6 @@
             rocks.push(rock);
         }
 
-
         function addCloud(cx, cz, r, h, noRotate=false) {
             var x = (2+Math.random()*2-1)*10;
             var y = 2+Math.random()*4;
@@ -207,7 +210,7 @@
             cloud.rotation.y = ry;
             clouds.push(cloud);
         }
-        function addLight(x, y, z) {
+        function addLight(x, y, z) { // obsolete
             var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(x,y,z), scene);
             light.position = new BABYLON.Vector3(x, y, z);
             light.direction = new BABYLON.Vector3(0, -1, 0);
@@ -219,8 +222,56 @@
             clouds.push(light);
         }
 
+
+        function addCactus(cx, cz, r, noRotate=false) {
+            var dim = 0.2+Math.random()*0.1;
+            var y = 8;
+            var ry = noRotate? 0 : Math.PI*2*Math.random();
+            var cactusBody = BABYLON.MeshBuilder.CreateBox("box", { width: dim, height: y, depth: dim }, scene);
+            cactusBody.material = cactusMaterial;
+            cactusBody.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, Math.random(), cz+Math.random()*r*2-r);
+            cactusBody.rotation.y = ry;
+            cacti.push(cactusBody);
+            var h1 = 0.3+Math.random()*0.75;
+            if (Math.random() > 0.25) {
+                var cactusArm1 = BABYLON.MeshBuilder.CreateBox("box", { width: dim, height: dim, depth: 0.6}, scene);
+                cactusArm1.material = cactusMaterial;
+                cactusArm1.position = new BABYLON.Vector3(Math.sin(cactusBody.rotation.y)*0.4, 0, Math.cos(cactusBody.rotation.y)*0.4).addInPlace(cactusBody.position);
+                cactusArm1.position.y = 1 + Math.random()*2;
+                cactusArm1.rotation.y = ry;
+                cacti.push(cactusArm1);
+                var cactusArm12 = BABYLON.MeshBuilder.CreateBox("box", { width: dim, height: h1, depth: dim}, scene);
+                cactusArm12.material = cactusMaterial;
+                cactusArm12.position = new BABYLON.Vector3(Math.sin(cactusBody.rotation.y)*0.567, 0, Math.cos(cactusBody.rotation.y)*0.567).addInPlace(cactusBody.position);
+                cactusArm12.position.y = 0.1 + h1/2 + cactusArm1.position.y;
+                console.log(cactusArm12.position.y);
+                cactusArm12.rotation.y = ry;
+                cacti.push(cactusArm12);
+            }
+            if (Math.random() > 0.5) {
+                var cactusArm2 = BABYLON.MeshBuilder.CreateBox("box", { width: dim, height: dim, depth: 0.6}, scene);
+                cactusArm2.material = cactusMaterial;
+                cactusArm2.position = new BABYLON.Vector3(-Math.sin(cactusBody.rotation.y)*0.4, 0, -Math.cos(cactusBody.rotation.y)*0.4).addInPlace(cactusBody.position);
+                cactusArm2.position.y = 1 + Math.random()*2;
+                cactusArm2.rotation.y = ry;
+                cacti.push(cactusArm2);
+                var h2 = h1 + (Math.random()-0.5)/4;
+                var cactusArm22 = BABYLON.MeshBuilder.CreateBox("box", { width: dim, height: h2, depth: dim}, scene);
+                cactusArm22.material = cactusMaterial;
+                cactusArm22.position = new BABYLON.Vector3(-Math.sin(cactusBody.rotation.y)*0.567, 0, -Math.cos(cactusBody.rotation.y)*0.567).addInPlace(cactusBody.position);
+                cactusArm22.position.y = 0.1 + h2/2 + cactusArm2.position.y;
+                console.log(cactusArm22.position.y);
+                cactusArm22.rotation.y = ry;
+                cacti.push(cactusArm22);
+            }
+        }
+
         for (var i = 0; i < 300; i += 1) { // add rocks to the map
             addRock(0,0,100);
+        }
+
+        for (var i = 0; i < 25; i += 1) { // add cacti to the map
+            addCactus(0,0,50);
         }
 
         var maxx = 500;
