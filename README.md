@@ -18,3 +18,4 @@ Shan-Mei: [https://shan-mei.github.io/shanmeis-notes/](https://shan-mei.github.i
 Spicata: [https://spicata.github.io/](https://spicata.github.io/)  
 Thomas: [https://nottacoz.github.io/jacaranda/](https://nottacoz.github.io/jacaranda/)  
 π-thagoras: [https://pi-thagoras.github.io/the-chicken-pen/](https://pi-thagoras.github.io/the-chicken-pen/)  
+Choyu: [https://grimreaper2654.github.io/Notes/content/notes/cringe.html] (https://grimreaper2654.github.io/Notes/content/notes/cringe.html)
