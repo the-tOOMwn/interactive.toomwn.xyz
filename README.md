@@ -3,7 +3,7 @@ towning moment
 An interactive non-game game
 
 ### Game link:  
-[https://the-oom-town.github.io/town-interactive/](https://the-oom-town.github.io/town-interactive/)
+[https://the-toomwn.github.io/town-interactive/](The TOOMwn)
 
 ### Town Members:  
 Anonymoof1528: [https://anonymoof1528.github.io/into-the-shadow-garten/](https://anonymoof1528.github.io/into-the-shadow-garten/)  
