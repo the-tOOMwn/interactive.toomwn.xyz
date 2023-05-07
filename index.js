@@ -7,6 +7,9 @@ var sprint = 0; // used for sprinting
 var vy = 0; // Vertical velocity (used for jumping and physics)
 var r = {x:0, y:0} // rotation
 var typeing = false; // whether movement commands are ignored
+var windR = 0; // wind direction
+var windS = 1; // wind speed
+var cdist = 1500; // cloud area
 
 // records keypresses
 window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
@@ -154,7 +157,6 @@ cloudMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
 var rocks = [];
 var clouds = [];
 var cacti = [];
-var dunes = [];
 
 function addRock(cx, cz, r, noRotate=false) {
     var x = (2+Math.random()*2-1)*0.1;
@@ -245,12 +247,12 @@ for (var i = 0; i < 25; i += 1) { // add cacti to the map
     addCactus(0,0,50);
 }
 
-var maxx = 500;
-var maxz = 500;
-for (var i = 0; i < 30; i += 1) { // add clouds to the map (1 cloud is a group of small rectangles)
+var maxx = cdist;
+var maxz = cdist;
+for (var i = 0; i < 100; i += 1) { // add clouds to the map (1 cloud is a group of small rectangles)
     var x = Math.random()*maxx*2-maxx;
     var z = Math.random()*maxz*2-maxz;
-    var h = 75 + Math.random()*25;
+    var h = 150 + Math.random()*50;
     for (var j = 0; j < 15; j += 1) {
         addCloud(x,z,15,h,true);
     }
@@ -285,7 +287,7 @@ if (evt.keyCode === 8) {
 
 });*/
 
-var particleSystem = new BABYLON.ParticleSystem("sandstorm", 100000, scene);
+var particleSystem = new BABYLON.ParticleSystem("sandstorm", 10000, scene);
 particleSystem.particleTexture = new BABYLON.Texture("textures/sand3.png", scene);
 particleSystem.emitter = new BABYLON.Vector3(0, 10, 0);
 particleSystem.minEmitBox = new BABYLON.Vector3(-100, -10, -100);
@@ -293,11 +295,11 @@ particleSystem.maxEmitBox = new BABYLON.Vector3(100, 20, 100);
 particleSystem.color1 = new BABYLON.Color4(1, 1, 1, 1);
 particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
 particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
-particleSystem.minSize = 0.1;
-particleSystem.maxSize = 0.2;
+particleSystem.minSize = 0.05;
+particleSystem.maxSize = 0.05;
 particleSystem.minLifeTime = 0.3;
 particleSystem.maxLifeTime = 1.5;
-particleSystem.emitRate = 50000;
+particleSystem.emitRate = 5000;
 particleSystem.direction1 = new BABYLON.Vector3(-1, -1, -1);
 particleSystem.direction2 = new BABYLON.Vector3(1, 1, 1);
 particleSystem.minAngularSpeed = 0;
@@ -334,6 +336,32 @@ scene.onBeforeRenderObservable.add(() => {
         setTimeout(function() {
             guiTexture.removeControl(textBlock);
         }, 1);*/
+    }
+    // move clouds
+    var wind = new BABYLON.Vector3(
+        Math.sin(windR) * windS,
+        0,
+        Math.cos(windR) * windS
+    );
+    wind.scaleInPlace(0.1);
+    for (var i = 0; i < clouds.length; i+=1) {
+        clouds[i].position.addInPlace(wind);
+        if (clouds[i].position.x > cdist) {
+            clouds[i].position.x = -cdist;
+        }
+        if (clouds[i].position.x < -cdist) {
+            clouds[i].position.x = cdist;
+        }
+        if (clouds[i].position.y > cdist) {
+            clouds[i].position.y = -cdist;
+        }
+        if (clouds[i].position.y < -cdist) {
+            clouds[i].position.y = cdist;
+        }
+    }
+    if (Math.random() > 0.9) {
+        windR += Math.random()*Math.PI/16-Math.PI/32;
+        windS += Math.random()/100-0.005;
     }
 
     // Movement vectors in horizontal plane
