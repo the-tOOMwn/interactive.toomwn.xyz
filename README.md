@@ -1,5 +1,5 @@
 # tOOMwn-interactive
-###An interactive non-game game
+### An interactive non-game game
 <img width="1276" alt="Welcome to the Town" src="https://user-images.githubusercontent.com/80506189/236781125-deaff6ba-8dee-4c8a-8f6c-57a98e33a882.png">
 
 ### Game link:  
