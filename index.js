@@ -384,6 +384,14 @@ console.log(`Total entities:`, clouds.length+cacti.length+rocks.length);
 
 addSpaceship(); // add a SPACESHIP to the scene. It is NOT a deformed blob.
 
+// create heart shape mesh
+var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {diameterTop: 0.5, height: 2, tessellation: 32}, scene);
+cone.position = new BABYLON.Vector3(-20, 1, 10);
+var coneMat = new BABYLON.StandardMaterial("coneMat", scene);
+coneMat.diffuseColor = new BABYLON.Color3.FromHexString("#FF69B4");
+cone.material = coneMat;
+
+
 // Links (add more)
 var links = [
     {
@@ -394,10 +402,17 @@ var links = [
         active: true, // whether the link is enabled or not
     },
     {
-        name: 'Edward', 
-        link: `https://github.com/EddieTheEd`, 
+        name: 'Shan-Mei Lore', 
+        link: `https://grimreaper2654.github.io/Notes/notes/cringe/`, 
         pos: {x: 0, y: 1, z: 0}, 
         radius: 2, 
+        active: true, 
+    },
+    {
+        name: 'Shan-Mei Dating Sim', 
+        link: `https://github.com/GrimReaper2654/Huynh-Dating-Simulator-EXTREME`, 
+        pos: {x: -20, y: 1, z: 10}, 
+        radius: 5, 
         active: true, 
     },
 ];
@@ -550,8 +565,10 @@ scene.onBeforeRenderObservable.add(() => {
     if (keyboard['shift'] && typeing == false) {
         moveDirection.addInPlace(shift);
     }
-
-    camera.position.addInPlace(moveDirection);
+    if (Math.random() > 0.1) {
+        camera.position.addInPlace(moveDirection);
+    }
+    
     //console.log(camera.position.x,camera.position.y,camera.position.z);
     t += 1; // Keep track of the current time
 });
