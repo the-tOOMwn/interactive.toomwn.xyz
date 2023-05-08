@@ -9,7 +9,7 @@ var r = {x:0, y:0} // rotation
 var typeing = false; // whether movement commands are ignored
 var windR = 0; // wind direction
 var windS = 1; // wind speed
-var cdist = 1500; // cloud area
+var cdist = 1500; // cloud spread
 
 // records keypresses
 window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
@@ -239,6 +239,72 @@ function addCactus(cx, cz, r, noRotate=false) {
     }
 }
 
+// Chat gpt made this trashy spaceship
+function addSpaceship() {
+    // Create Spaceship (if I don't comment this now, i'll forget what it is supposed to be)
+    var body = new BABYLON.MeshBuilder.CreateBox("body", { width: 4, height: 1.5, depth: 2 }, scene);
+    var cockpit = new BABYLON.MeshBuilder.CreateBox("cockpit", { width: 1, height: 0.8, depth: 1.2 }, scene);
+    var engine1 = new BABYLON.MeshBuilder.CreateBox("engine1", { width: 1, height: 0.6, depth: 1 }, scene);
+    var engine2 = new BABYLON.MeshBuilder.CreateBox("engine2", { width: 1, height: 0.6, depth: 1 }, scene);
+    var wing1 = new BABYLON.MeshBuilder.CreateBox("wing1", { width: 0.5, height: 0.1, depth: 3 }, scene);
+    var wing2 = new BABYLON.MeshBuilder.CreateBox("wing2", { width: 0.5, height: 0.1, depth: 3 }, scene);
+    var fin = new BABYLON.MeshBuilder.CreateBox("fin", { width: 0.1, height: 1, depth: 2 }, scene);
+
+    body.position.y = 0.75;
+    cockpit.position.x = -1.5;
+    cockpit.position.y = 0.5;
+    cockpit.position.z = 0.2;
+
+    engine1.position.x = 1.5;
+    engine1.position.y = -0.3;
+
+    engine2.position.x = 1.5;
+    engine2.position.y = 0.3;
+
+    wing1.position.x = 2;
+    wing1.position.y = 0.5;
+    wing1.position.z = 0.5;
+
+    wing2.position.x = 2;
+    wing2.position.y = 0.5;
+    wing2.position.z = -0.5;
+
+    fin.position.y = 0.75;
+    fin.position.z = -1;
+
+    // Set Materials
+    var bodyMaterial = new BABYLON.StandardMaterial("bodyMaterial", scene);
+    bodyMaterial.diffuseColor = new BABYLON.Color3(0.6, 0.2, 0.2);
+    body.material = bodyMaterial;
+
+    var cockpitMaterial = new BABYLON.StandardMaterial("cockpitMaterial", scene);
+    cockpitMaterial.diffuseColor = new BABYLON.Color3(0.9, 0.9, 0.9);
+    cockpit.material = cockpitMaterial;
+
+    var engineMaterial = new BABYLON.StandardMaterial("engineMaterial", scene);
+    engineMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+    engine1.material = engineMaterial;
+    engine2.material = engineMaterial;
+
+    var wingMaterial = new BABYLON.StandardMaterial("wingMaterial", scene);
+    wingMaterial.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+    wing1.material = wingMaterial;
+    wing2.material = wingMaterial;
+
+    var finMaterial = new BABYLON.StandardMaterial("finMaterial", scene);
+    finMaterial.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+    fin.material = finMaterial;
+
+    // Move Spaceship
+    body.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+    cockpit.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+    engine1.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+    engine2.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+    wing1.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+    wing2.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+    fin.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
+}
+
 for (var i = 0; i < 300+Math.random()*100; i += 1) { // add rocks to the map
     addRock(0,0,100);
 }
@@ -316,6 +382,21 @@ console.log(`Cacti:`, cacti.length);
 console.log(`Rocks:`, rocks.length);
 console.log(`Total entities:`, clouds.length+cacti.length+rocks.length);
 
+addSpaceship(); // add a SPACESHIP to the scene. It is NOT a deformed blob.
+
+// Links
+var links = [
+    {
+        name: 'Testing',
+        link: `https://github.com/GrimReaper2654/Spaceship-Game`,
+        pos: {x: 10, y: 1, z: 10},
+        radius: 5,
+        active: true, // Currently unused but eventually we will make it so certain conditions must be fulfilled to access some websites
+    }
+];
+
+//window.open(linkToOpen, "_blank");
+var t=0;
 scene.onBeforeRenderObservable.add(() => {
     // Rotate the camera based on the mouse movement
     if (isPointerLocked) {
@@ -331,18 +412,46 @@ scene.onBeforeRenderObservable.add(() => {
     } else {
         console.log(`Pointer lock: Disabled`);
         /*
-        // create a new 2D GUI element
-        var guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-        // create a text block and add it to the GUI
-        var textBlock = new BABYLON.GUI.TextBlock();
-        textBlock.text = "Click to enter the non-game game!";
-        textBlock.color = "white";
-        textBlock.fontSize = 72;
-        guiTexture.addControl(textBlock);
-        setTimeout(function() {
-            guiTexture.removeControl(textBlock);
-        }, 1);*/
+        if (t%15 == 0) {
+            console.log('update visuals');
+            
+            // create a new 2D GUI element
+            var guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+            // create a text block and add it to the GUI
+            var textBlock = new BABYLON.GUI.TextBlock();
+            textBlock.text = "Click to enter the non-game game!";
+            textBlock.color = "white";
+            textBlock.fontSize = 72;
+            guiTexture.addControl(textBlock);
+            setTimeout(function() {
+                guiTexture.removeControl(textBlock);
+            }, 300); 
+        }*/
     }
+    // Links 
+
+    for (var i = 0; i < links.length; i+=1) {
+        if (Math.sqrt((camera.position.x-links[i].pos.x)**2+(camera.position.y-links[i].pos.y)**2+(camera.position.z-links[i].pos.z)**2) < links[i].radius && links[i].active == true) {
+            console.log('in range');
+            if (t%15 == 0) {
+                var guiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+                // create a text block and add it to the GUI
+                var textBlock = new BABYLON.GUI.TextBlock();
+                textBlock.text = `Press [f] to open ${links[i].name}!`;
+                textBlock.color = "white";
+                textBlock.fontSize = 72;
+                guiTexture.addControl(textBlock);
+                setTimeout(function() {
+                    guiTexture.removeControl(textBlock);
+                }, 300);
+                if (keyboard['f']) {
+                    window.open(links[i].link, "_blank");
+                    keyboard['f'] = false;
+                }
+            }
+        }
+    }
+
     // move clouds
     var wind = new BABYLON.Vector3(
         Math.sin(windR) * windS,
@@ -437,6 +546,7 @@ scene.onBeforeRenderObservable.add(() => {
 
     camera.position.addInPlace(moveDirection);
     //console.log(camera.position.x,camera.position.y,camera.position.z);
+    t += 1; // Keep track of the current time
 });
 
 //});
