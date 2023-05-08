@@ -166,7 +166,7 @@ function addRock(cx, cz, r, noRotate=false) {
     var ry = noRotate? 0 : Math.PI*2*Math.random();
     var rock = BABYLON.MeshBuilder.CreateBox("box", { width: x, height: y, depth: z }, scene);
     rock.material = rockMaterial;
-    rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, Math.random()/10, cz+Math.random()*r*2-r);
+    rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, Math.random()/5, cz+Math.random()*r*2-r);
     rock.rotation.x = rx;
     rock.rotation.y = ry;
     rocks.push(rock);
@@ -565,7 +565,7 @@ scene.onBeforeRenderObservable.add(() => {
     if (keyboard['shift'] && typeing == false) {
         moveDirection.addInPlace(shift);
     }
-    if (Math.random() > 0.1) {
+    if (Math.random() > 0.1 || true) {
         camera.position.addInPlace(moveDirection);
     }
     
