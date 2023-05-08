@@ -384,15 +384,22 @@ console.log(`Total entities:`, clouds.length+cacti.length+rocks.length);
 
 addSpaceship(); // add a SPACESHIP to the scene. It is NOT a deformed blob.
 
-// Links
+// Links (add more)
 var links = [
     {
-        name: 'Testing',
-        link: `https://github.com/GrimReaper2654/Spaceship-Game`,
-        pos: {x: 10, y: 1, z: 10},
-        radius: 5,
-        active: true, // Currently unused but eventually we will make it so certain conditions must be fulfilled to access some websites
-    }
+        name: 'Testing', // What is displayed (press [f] to open Testing)
+        link: `https://github.com/GrimReaper2654/Spaceship-Game`, // The link
+        pos: {x: 10, y: 1, z: 10}, // position of the link's hitbox
+        radius: 5, // size of the link's hitbox
+        active: true, // whether the link is enabled or not
+    },
+    {
+        name: 'Edward', 
+        link: `https://github.com/EddieTheEd`, 
+        pos: {x: 0, y: 1, z: 0}, 
+        radius: 2, 
+        active: true, 
+    },
 ];
 
 //window.open(linkToOpen, "_blank");
