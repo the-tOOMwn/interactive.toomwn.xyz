@@ -1,6 +1,5 @@
 # tOOMwn-interactive
 ### An interactive non-game game
-<img width="1294" alt="Screenshot 2023-05-08 at 5 43 35 pm" src="https://user-images.githubusercontent.com/80506189/236792215-92501026-f0a1-436c-8265-00b631ef29c1.png">
 
 ### Game link:  
 [The TOOMwn](https://the-toomwn.github.io/town-interactive/)
