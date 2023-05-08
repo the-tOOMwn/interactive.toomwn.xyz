@@ -17,5 +17,5 @@ Notmario: [https://notmario.github.io/thenotes/](https://notmario.github.io/then
 Shan-Mei: [https://shan-mei.github.io/shanmeis-notes/](https://shan-mei.github.io/shanmeis-notes/)  
 Spicata: [https://spicata.99000000.xyz/](https://spicata.99000000.xyz/)  
 Thomas: [https://nottacoz.github.io/jacaranda/](https://nottacoz.github.io/jacaranda/)  
-Tom: [https://grimreaper2654.github.io/Notes/content/notes/cringe.html](https://grimreaper2654.github.io/Notes/content/notes/cringe.html)  
+Tom: [https://grimreaper2654.github.io/Notes/](https://grimreaper2654.github.io/Notes/)  
 π-thagoras: [https://pi-thagoras.github.io/the-chicken-pen/](https://pi-thagoras.github.io/the-chicken-pen/)  
