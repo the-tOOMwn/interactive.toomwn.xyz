@@ -172,6 +172,20 @@ function addRock(cx, cz, r, noRotate=false) {
     rocks.push(rock);
 }
 
+function addBoulder(cx, cz, r, noRotate=false) {
+    var x = (2+Math.random()*2-1)*0.2;
+    var y = 0.4;
+    var z = (2+Math.random()*2-1)*0.2;
+    var rx = noRotate? 0 : Math.random()*Math.PI/24;
+    var ry = noRotate? 0 : Math.PI*2*Math.random();
+    var rock = BABYLON.MeshBuilder.CreateBox("box", { width: x, height: y, depth: z }, scene);
+    rock.material = rockMaterial;
+    rock.position = new BABYLON.Vector3(cx+Math.random()*r*2-r, Math.random()/3, cz+Math.random()*r*2-r);
+    rock.rotation.x = rx;
+    rock.rotation.y = ry;
+    rocks.push(rock);
+}
+
 function addCloud(cx, cz, r, h, noRotate=false) {
     var x = (2+Math.random()*2-1)*10;
     var y = 2+Math.random()*4;
@@ -315,7 +329,7 @@ for (var i = 0; i < 15+Math.random()*20; i += 1) { // add cacti to the map
 
 var maxx = cdist;
 var maxz = cdist;
-for (var i = 0; i < 75+Math.random()*75; i += 1) { // add clouds to the map (1 cloud is a group of small rectangles)
+for (var i = 0; i < 75+Math.random()*75; i += 1) { // add clouds to the map (1 cloud is a group of small subclouds)
     var x = Math.random()*maxx*2-maxx;
     var z = Math.random()*maxz*2-maxz;
     var h = 150 + Math.random()*50;
@@ -324,6 +338,20 @@ for (var i = 0; i < 75+Math.random()*75; i += 1) { // add clouds to the map (1 c
         addCloud(x,z,size,h,true);
     }
     //addLight(x,h-1,z);
+}
+
+maxx = 250;
+maxz = 250;
+for (var i = 0; i < 20+Math.random()*5; i += 1) { // add boulders (more complex rocks that will eventually have collision)
+    var x = Math.random()*maxx*2-maxx;
+    var z = Math.random()*maxz*2-maxz;
+    var size = 24+Math.random()*18;
+    for (var j = 0; j < size; j += 1) {
+        addBoulder(x,z,size/64);
+    }
+    for (var j = 0; j < size*2; j += 1) {
+        addRock(x,z,size/48);
+    }
 }
 
 // GUI, includes settings button
