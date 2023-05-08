@@ -8,7 +8,6 @@ An interactive non-game game
 ### Town Members:  
 Anonymoof1528: [https://anonymoof1528.github.io/into-the-shadow-garten/](https://anonymoof1528.github.io/into-the-shadow-garten/)  
 Athu: [https://super-cookies.github.io/duk/](https://super-cookies.github.io/duk/)  
-Choyu: [https://grimreaper2654.github.io/Notes/content/notes/cringe.html](https://grimreaper2654.github.io/Notes/content/notes/cringe.html)  
 Edward: [https://eddietheed.github.io/obsidiannotes-v.3/](https://eddietheed.github.io/obsidiannotes-v.3/)  
 Jole: [https://rubver16.github.io/joles-notes/](https://rubver16.github.io/joles-notes/)  
 Jonathan: [https://nottaro.github.io/notes-dump/](https://nottaro.github.io/notes-dump/)  
@@ -18,4 +17,5 @@ Notmario: [https://notmario.github.io/thenotes/](https://notmario.github.io/then
 Shan-Mei: [https://shan-mei.github.io/shanmeis-notes/](https://shan-mei.github.io/shanmeis-notes/)  
 Spicata: [https://spicata.github.io/](https://spicata.github.io/)  
 Thomas: [https://nottacoz.github.io/jacaranda/](https://nottacoz.github.io/jacaranda/)  
+Tom: [https://grimreaper2654.github.io/Notes/content/notes/cringe.html](https://grimreaper2654.github.io/Notes/content/notes/cringe.html)  
 π-thagoras: [https://pi-thagoras.github.io/the-chicken-pen/](https://pi-thagoras.github.io/the-chicken-pen/)  
