@@ -79,7 +79,7 @@ camera.checkCollisions = true;
 camera.setTarget(BABYLON.Vector3.Zero());
 
 // create a flat ground
-var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 200, height: 200, subdivisions: 50}, scene);
+var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 500, height: 500, subdivisions: 100}, scene);
 
 // get the vertex data from the ground mesh
 var vertexData = BABYLON.VertexData.ExtractFromMesh(ground);
