@@ -63,14 +63,14 @@ var musicvalue = 1
 
 camera.speed = 0.2
 camera.minZ = 0.01
-camera.position.y = 1.8 // double the height of the ellipsoid for some reason
+camera.position.y = 4 // double the height of the ellipsoid for some reason
 
 const assumedFramesPerSecond = 60;
 const earthGravity = -9.81;
 scene.gravity = new BABYLON.Vector3(0, earthGravity / assumedFramesPerSecond, 0);
 camera.applyGravity = true;
 
-camera.ellipsoid = new BABYLON.Vector3(0.7, 0.9, 0.7);
+camera.ellipsoid = new BABYLON.Vector3(0.7, 2, 0.7);
 
 scene.collisionsEnabled = true;
 camera.checkCollisions = true;
