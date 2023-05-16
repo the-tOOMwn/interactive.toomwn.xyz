@@ -8,8 +8,9 @@ var vy = 0; // Vertical velocity (used for jumping and physics)
 var r = {x:0, y:0} // rotation
 var typeing = false; // whether movement commands are ignored
 var windR = 0; // wind direction
-var windS = 1; // wind speed
+var windS = 0.1; // wind speed
 var cdist = 1500; // cloud spread
+const mapsize = 500; // Size of the map
 
 // records keypresses
 window.onkeyup = function(e) { keyboard[e.key.toLowerCase()] = false; }
@@ -79,7 +80,7 @@ camera.checkCollisions = true;
 camera.setTarget(BABYLON.Vector3.Zero());
 
 // create a flat ground
-var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 500, height: 500, subdivisions: 100}, scene);
+var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: mapsize, height: mapsize, subdivisions: mapsize/2}, scene);
 
 // get the vertex data from the ground mesh
 var vertexData = BABYLON.VertexData.ExtractFromMesh(ground);
@@ -319,12 +320,12 @@ function addSpaceship() {
     fin.position.addInPlace(new BABYLON.Vector3(10, 1, 10));
 }
 
-for (var i = 0; i < 300+Math.random()*100; i += 1) { // add rocks to the map
-    addRock(0,0,100);
+for (var i = 0; i < mapsize**2/100; i += 1) { // add rocks to the map
+    addRock(0,0,mapsize/2);
 }
 
-for (var i = 0; i < 15+Math.random()*20; i += 1) { // add cacti to the map
-    addCactus(0,0,50);
+for (var i = 0; i < mapsize**2/1000; i += 1) { // add cacti to the map
+    addCactus(0,0,mapsize/2);
 }
 
 var maxx = cdist;
@@ -353,6 +354,7 @@ for (var i = 0; i < 20+Math.random()*5; i += 1) { // add boulders (more complex 
         addRock(x,z,size/48);
     }
 }
+
 
 // GUI, includes settings button
 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -391,12 +393,12 @@ particleSystem.color1 = new BABYLON.Color4(1, 1, 1, 1);
 particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
 particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
 particleSystem.minSize = 0.05;
-particleSystem.maxSize = 0.05;
+particleSystem.maxSize = 0.1;
 particleSystem.minLifeTime = 0.3;
 particleSystem.maxLifeTime = 1.5;
 particleSystem.emitRate = 5000;
-particleSystem.direction1 = new BABYLON.Vector3(-1, -1, -1);
-particleSystem.direction2 = new BABYLON.Vector3(1, 1, 1);
+particleSystem.direction1 = new BABYLON.Vector3(2, -0.5, -0.25);
+particleSystem.direction2 = new BABYLON.Vector3(10, 0.5, 0.25);
 particleSystem.minAngularSpeed = 0;
 particleSystem.maxAngularSpeed = Math.PI;
 particleSystem.minEmitPower = 15;
@@ -423,7 +425,7 @@ cone.material = coneMat;
 // Links (add more)
 var links = [
     {
-        name: 'Testing', // What is displayed (press [f] to open Testing)
+        name: 'Spaceship', // What is displayed (press [f] to open Testing)
         link: `https://github.com/GrimReaper2654/Spaceship-Game`, // The link
         pos: {x: 10, y: 1, z: 10}, // position of the link's hitbox
         radius: 5, // size of the link's hitbox
@@ -440,7 +442,14 @@ var links = [
         name: 'Shan-Mei Dating Sim', 
         link: `https://github.com/GrimReaper2654/Huynh-Dating-Simulator-EXTREME`, 
         pos: {x: -20, y: 1, z: 10}, 
-        radius: 5, 
+        radius: 3, 
+        active: true, 
+    },
+    {
+        name: 'Edward\s Notes', 
+        link: `https://edsobsidiannotes.netlify.app/`, 
+        pos: {x: -10, y: 2, z: 15}, 
+        radius: 4, 
         active: true, 
     },
 ];
@@ -511,22 +520,27 @@ scene.onBeforeRenderObservable.add(() => {
     wind.scaleInPlace(0.1);
     for (var i = 0; i < clouds.length; i+=1) {
         clouds[i].position.addInPlace(wind);
-        if (clouds[i].position.x > cdist) {
-            clouds[i].position.x = -cdist;
+        if (clouds[i].position.x > camera.position.x+cdist) {
+            clouds[i].position.x = camera.position.x-cdist;
         }
-        if (clouds[i].position.x < -cdist) {
-            clouds[i].position.x = cdist;
+        if (clouds[i].position.x < camera.position.x-cdist) {
+            clouds[i].position.x = camera.position.x+cdist;
         }
-        if (clouds[i].position.y > cdist) {
-            clouds[i].position.y = -cdist;
+        if (clouds[i].position.y > camera.position.y+cdist) {
+            clouds[i].position.y = camera.position.y-cdist;
         }
-        if (clouds[i].position.y < -cdist) {
-            clouds[i].position.y = cdist;
+        if (clouds[i].position.y < camera.position.y-cdist) {
+            clouds[i].position.y = camera.position.y+cdist;
         }
     }
     if (Math.random() > 0.9) {
         windR += Math.random()*Math.PI/16-Math.PI/32;
         windS += Math.random()/100-0.005;
+        if (windS > 1) {
+            windS = 1;
+        } if (windS < 0) {
+            windS = 0;
+        }
     }
 
     // Movement vectors in horizontal plane
