@@ -158,6 +158,7 @@ cloudMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
 var rocks = [];
 var clouds = [];
 var cacti = [];
+var buildings = [];
 
 function addRock(cx, cz, r, noRotate=false) {
     var x = (2+Math.random()*2-1)*0.1;
@@ -355,6 +356,109 @@ for (var i = 0; i < 20+Math.random()*5; i += 1) { // add boulders (more complex 
     }
 }
 
+// Construct all the member's houses
+
+
+function rect(w, h, d, x, y, z, rx, ry, material, x2, y2, z2, rx2, ry2,) {
+    var block = BABYLON.MeshBuilder.CreateBox("box", { width: w, height: h, depth: d}, scene);
+    switch (material) {
+        case 0:
+            var a = new BABYLON.StandardMaterial("0Material", scene);
+            a.diffuseColor = new BABYLON.Color3(0.8, 0.9, 1);
+            cloudMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
+            block.material = a;
+            break;
+        case 1:
+            var a = new BABYLON.StandardMaterial("1Material", scene);
+            a.diffuseColor = new BABYLON.Color3(0.7, 0.7, 0.7);
+            block.material = a;
+            break;
+        case 2:
+            var a = new BABYLON.StandardMaterial("2Material", scene);
+            a.diffuseColor = new BABYLON.Color3(0.8, 0.8, 1);
+            block.material = a;
+            break;
+        case 3:
+            var a = new BABYLON.StandardMaterial("3Material", scene);
+            a.diffuseColor = new BABYLON.Color3(1, 1, 1);
+            block.material = a;
+            break;
+        case 4:
+            var a = new BABYLON.StandardMaterial("4Material", scene);
+            a.diffuseColor = new BABYLON.Color3(0.9, 0.9, 0.9);
+            block.material = a;
+            break;
+        case 5:
+            var a = new BABYLON.StandardMaterial("5Material", scene);
+            a.diffuseColor = new BABYLON.Color3(0.9, 0.9, 0.3);
+            block.material = a;
+            break;
+        default:
+            var a = new BABYLON.StandardMaterial("-1Material", scene);
+            a.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.5);
+            block.material = a;
+            break;
+    }
+    block.position = new BABYLON.Vector3(x + x2, y + y2, z + z2);
+    block.rotation.x = rx + rx2;
+    block.rotation.y = ry + ry2;
+    buildings.push(block);
+    return;
+}
+
+function basicDoor(x, y, z, rx, ry) {
+    rect(1.75, 3, 0.25, 0, 2, 0.01, 0, 0, 1, x, y, z , rx, ry);
+    rect(1.75, 0.25, 0.25, 0, 0.625, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(1.75, 0.25, 0.25, 0, 3.375, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(0.25, 3, 0.25, 0.75, 2, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(0.25, 3, 0.25, -0.75, 2, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(0.25, 3, 0.25, 0, 2, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(1.75, 0.25, 0.25, 0, 2, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(0.1, 0.1, 0.1, -0.72, 2, 0.35, 0, 0, 5, x, y, z , rx, ry);
+    rect(0.05, 0.05, 0.15, -0.72, 2, 0.275, 0, 0, 5, x, y, z , rx, ry);
+    return;
+}
+
+function basicWindow(x, y, z, rx, ry) {
+    rect(1.75, 1.75, 0.25, 0, 1.5, 0.01, 0, 0, 0, x, y, z , rx, ry);
+    rect(1.75, 0.25, 0.25, 0, 0.75, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(1.75, 0.25, 0.25, 0, 2.25, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(0.25, 1.75, 0.25, 0.75, 1.5, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    rect(0.25, 1.75, 0.25, -0.75, 1.5, 0.125, 0, 0, 4, x, y, z , rx, ry);
+    return;
+}
+
+function basicHouse(x, y, z, rx, ry) {
+    // Main Structure
+    rect(16, 1, 36, 0, 0, 0, 0, 0, 1, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, -17, 0, 0, 2, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, 17, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, -7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, 7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, -7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, 7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    basicDoor(x, y, z+17, rx, ry)
+    basicWindow(x+3, y+0.5, z+17, rx, ry);
+    basicWindow(x+3, y+2, z+17, rx, ry);
+    basicWindow(x+4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x+4.5, y+2, z+17, rx, ry);
+    basicWindow(x-3, y+0.5, z+17, rx, ry);
+    basicWindow(x-3, y+2, z+17, rx, ry);
+    basicWindow(x-4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x-4.5, y+2, z+17, rx, ry);
+    rect(3.5, 0.25, 0.5, -3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    rect(3.5, 0.25, 0.5, 3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    return;
+}
+
+basicHouse(-25, 0, -50, 0, 0);
 
 // GUI, includes settings button
 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -384,35 +488,40 @@ if (evt.keyCode === 8) {
 
 });*/
 
-var particleSystem = new BABYLON.ParticleSystem("sandstorm", 10000, scene);
-particleSystem.particleTexture = new BABYLON.Texture("textures/sand3.png", scene);
-particleSystem.emitter = new BABYLON.Vector3(0, 10, 0);
-particleSystem.minEmitBox = new BABYLON.Vector3(-100, -10, -100);
-particleSystem.maxEmitBox = new BABYLON.Vector3(100, 20, 100);
-particleSystem.color1 = new BABYLON.Color4(1, 1, 1, 1);
-particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
-particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
-particleSystem.minSize = 0.05;
-particleSystem.maxSize = 0.1;
-particleSystem.minLifeTime = 0.3;
-particleSystem.maxLifeTime = 1.5;
-particleSystem.emitRate = 5000;
-particleSystem.direction1 = new BABYLON.Vector3(2, -0.5, -0.25);
-particleSystem.direction2 = new BABYLON.Vector3(10, 0.5, 0.25);
-particleSystem.minAngularSpeed = 0;
-particleSystem.maxAngularSpeed = Math.PI;
-particleSystem.minEmitPower = 15;
-particleSystem.maxEmitPower = 30;
-particleSystem.updateSpeed = 0.005;
-particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
-particleSystem.start();
+function sandstorm() {
+    var particleSystem = new BABYLON.ParticleSystem("sandstorm", 10000, scene);
+    particleSystem.particleTexture = new BABYLON.Texture("textures/sand3.png", scene);
+    particleSystem.emitter = new BABYLON.Vector3(0, 10, 0);
+    particleSystem.minEmitBox = new BABYLON.Vector3(-100, -10, -100);
+    particleSystem.maxEmitBox = new BABYLON.Vector3(100, 20, 100);
+    particleSystem.color1 = new BABYLON.Color4(1, 1, 1, 1);
+    particleSystem.color2 = new BABYLON.Color4(1, 1, 1, 1);
+    particleSystem.colorDead = new BABYLON.Color4(0, 0, 0, 0);
+    particleSystem.minSize = 0.05;
+    particleSystem.maxSize = 0.1;
+    particleSystem.minLifeTime = 0.3;
+    particleSystem.maxLifeTime = 1.5;
+    particleSystem.emitRate = 5000;
+    particleSystem.direction1 = new BABYLON.Vector3(2, -0.5, -0.25);
+    particleSystem.direction2 = new BABYLON.Vector3(10, 0.5, 0.25);
+    particleSystem.minAngularSpeed = 0;
+    particleSystem.maxAngularSpeed = Math.PI;
+    particleSystem.minEmitPower = 15;
+    particleSystem.maxEmitPower = 30;
+    particleSystem.updateSpeed = 0.005;
+    particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
+    particleSystem.start();
+    return;
+}
 
 console.log(`Clouds:`, clouds.length);
 console.log(`Cacti:`, cacti.length);
 console.log(`Rocks:`, rocks.length);
-console.log(`Total entities:`, clouds.length+cacti.length+rocks.length);
+console.log(`Buildings:`, buildings.length);
+console.log(`Total entities:`, clouds.length+cacti.length+rocks.length+buildings.length);
 
 addSpaceship(); // add a SPACESHIP to the scene. It is NOT a deformed blob.
+sandstorm();
 
 // create heart shape mesh
 var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {diameterTop: 0.5, height: 2, tessellation: 32}, scene);
@@ -589,15 +698,16 @@ scene.onBeforeRenderObservable.add(() => {
     }
 
     // Jumping
-    if ((keyboard[' '] && camera.position.y <= 1) && typeing == false) {
-        vy += 0.15; // change this to change the jump power
-    } 
+    const groundHeight = 2;
+    if ((keyboard[' '] && camera.position.y <= groundHeight) && typeing == false) {
+        vy += 0.2; // change this to change the jump power
+    }
 
-    if (camera.position.y > 1) { 
+    if (camera.position.y > groundHeight) { 
         vy -= 0.01;
     }
-    if (camera.position.y < 1) { // The earth is flat (literally)
-        camera.position.y = 1;
+    if (camera.position.y < groundHeight) { // The earth is flat (literally)
+        camera.position.y = groundHeight;
         vy=0;
     }
     var vertivalMovement = new BABYLON.Vector3(0, vy, 0);
