@@ -458,6 +458,36 @@ function basicHouse(x, y, z, rx, ry) {
     return;
 }
 
+function KentoHouse(x, y, z, rx, ry) {
+    // Main Structure
+    rect(16, 1, 36, 0, 0, 0, 0, 0, 1, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, -17, 0, 0, 2, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, 17, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, -7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, 7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, -7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, 7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    basicDoor(x, y, z+17, rx, ry);
+    basicWindow(x+3, y+0.5, z+17, rx, ry);
+    basicWindow(x+3, y+2, z+17, rx, ry);
+    basicWindow(x+4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x+4.5, y+2, z+17, rx, ry);
+    basicWindow(x-3, y+0.5, z+17, rx, ry);
+    basicWindow(x-3, y+2, z+17, rx, ry);
+    basicWindow(x-4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x-4.5, y+2, z+17, rx, ry);
+    rect(3.5, 0.25, 0.5, -3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    rect(3.5, 0.25, 0.5, 3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    return;
+}
+
 basicHouse(-25, 0, -50, 0, 0);
 
 // GUI, includes settings button
@@ -555,10 +585,10 @@ var links = [
         active: true, 
     },
     {
-        name: 'Edward\s Notes', 
+        name: 'Edward\'s Door', 
         link: `https://edsobsidiannotes.netlify.app/`, 
-        pos: {x: -10, y: 2, z: 15}, 
-        radius: 4, 
+        pos: {x: -25, y: 2, z: -33}, 
+        radius: 5, 
         active: true, 
     },
 ];
@@ -611,11 +641,11 @@ scene.onBeforeRenderObservable.add(() => {
                 guiTexture.addControl(textBlock);
                 setTimeout(function() {
                     guiTexture.removeControl(textBlock);
-                }, 300);
-                if (keyboard['f']) {
-                    window.open(links[i].link, "_blank");
-                    keyboard['f'] = false;
-                }
+                }, 500);
+            }
+            if (keyboard['f']) {
+                window.open(links[i].link, "_blank");
+                keyboard['f'] = false;
             }
         }
     }
