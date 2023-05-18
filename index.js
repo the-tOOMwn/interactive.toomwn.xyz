@@ -458,7 +458,67 @@ function basicHouse(x, y, z, rx, ry) {
     return;
 }
 
-function KentoHouse(x, y, z, rx, ry) {
+function house1(x, y, z, rx, ry) {
+    // Main Structure
+    rect(16, 1, 36, 0, 0, 0, 0, 0, 1, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, -17, 0, 0, 2, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, 17, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, -7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, 7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, -7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, 7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    basicDoor(x, y, z+17, rx, ry)
+    basicWindow(x+3, y+0.5, z+17, rx, ry);
+    basicWindow(x+3, y+2, z+17, rx, ry);
+    basicWindow(x+4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x+4.5, y+2, z+17, rx, ry);
+    basicWindow(x-3, y+0.5, z+17, rx, ry);
+    basicWindow(x-3, y+2, z+17, rx, ry);
+    basicWindow(x-4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x-4.5, y+2, z+17, rx, ry);
+    rect(3.5, 0.25, 0.5, -3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    rect(3.5, 0.25, 0.5, 3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    return;
+}
+
+function house2(x, y, z, rx, ry) {
+    // Main Structure
+    rect(16, 1, 36, 0, 0, 0, 0, 0, 1, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, -17, 0, 0, 2, x, y, z , rx, ry);
+    rect(14, 5, 0.25, 0, 3, 17, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, -7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.25, 5, 34, 7, 3, 0, 0, 0, 2, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, 7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 5, 0.5, -7.25, 3, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, -7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(0.5, 0.5, 34, 7.25, 5.25, 0, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, 17.25, 0, 0, 3, x, y, z , rx, ry);
+    rect(14, 0.5, 0.5, 0, 5.25, -17.25, 0, 0, 3, x, y, z , rx, ry);
+    basicDoor(x, y, z+17, rx, ry)
+    basicWindow(x+3, y+0.5, z+17, rx, ry);
+    basicWindow(x+3, y+2, z+17, rx, ry);
+    basicWindow(x+4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x+4.5, y+2, z+17, rx, ry);
+    basicWindow(x-3, y+0.5, z+17, rx, ry);
+    basicWindow(x-3, y+2, z+17, rx, ry);
+    basicWindow(x-4.5, y+0.5, z+17, rx, ry);
+    basicWindow(x-4.5, y+2, z+17, rx, ry);
+    rect(3.5, 0.25, 0.5, -3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    rect(3.5, 0.25, 0.5, 3.75, 1.225, 17.375, 0, 0, 3, x, y, z , rx, ry);
+    return;
+}
+
+function house3(x, y, z, rx, ry) {
     // Main Structure
     rect(16, 1, 36, 0, 0, 0, 0, 0, 1, x, y, z , rx, ry);
     rect(14, 5, 0.25, 0, 3, -17, 0, 0, 2, x, y, z , rx, ry);
@@ -489,6 +549,12 @@ function KentoHouse(x, y, z, rx, ry) {
 }
 
 basicHouse(-25, 0, -50, 0, 0);
+
+house1(25, 0, -50, 0, 0);
+
+house2(-75, 0, -50, 0, 0);
+
+house3(75, 0, -50, 0, 0);
 
 // GUI, includes settings button
 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
