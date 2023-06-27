@@ -13,7 +13,7 @@ Jole: [https://rubver16.github.io/joles-notes/](https://rubver16.github.io/joles
 Jonathan: [https://nottaros-notes-dump.netlify.app/](https://nottaros-notes-dump.netlify.app/)  
 Loren: [https://ionized-satellite-e99.notion.site/Loren-s-2023-Notion-cd03827de0a743468d9fb5a70413fc95](https://ionized-satellite-e99.notion.site/Loren-s-2023-Notion-cd03827de0a743468d9fb5a70413fc95)  
 Mace: [https://macesnotes.netlify.app/](https://macesnotes.netlify.app/)  
-MQ-9 Reaper: [https://grim4reaper.github.io/Year11Notes/](https://grim4reaper.github.io/Year11Notes/)  
+MQ-9 Reaper: [https://reaper.toomwn.xyz](https://reaper.toomwn.xyz)  
 Notmario: [https://notmario.github.io/thenotes/](https://notmario.github.io/thenotes/)  
 Shan-Mei: [https://shan-mei.github.io/shanmeis-notes/](https://shan-mei.github.io/shanmeis-notes/)  
 Spicata: [https://spicata.99000000.xyz/](https://spicata.99000000.xyz/)  
