@@ -2,7 +2,7 @@
 ### An interactive non-game game
 
 ### Game link:  
-[The TOOMwn](https://the-toomwn.github.io/town-interactive/)
+[The TOOMwn](https://interactive.toomwn.xyz/)
 
 ### Town Members:  
 Anonymoof1528: [https://anonymoof1528.github.io/into-the-shadow-garten/](https://anonymoof1528.github.io/into-the-shadow-garten/)  
